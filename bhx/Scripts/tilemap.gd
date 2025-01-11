@@ -1,21 +1,45 @@
 class_name TileManager
 extends Node2D
 
-
-
-var dimensions: Vector2 = Vector2(32, 32)
-var seed: int = randi_range(0, 100000000000000)
-var map: Array[Array] = []
+var map: Array[Array]
+@export var params: GeneratorParams
+@export var radial_gradient: GradientTexture2D
+var noise: Noise
 
 func _ready() -> void:
-	map = generate(seed)
+	params.seed = randi_range(0, 100000000000000)
+	noise = FastNoiseLite.new()
+	noise.seed = params.seed
+	noise.noise_type = params.noise_type
+	radial_gradient.height = params.dimensions.y
+	radial_gradient.width = params.dimensions.x
+	map = generate()
 
-func generate(seed) -> Array[Array]:
+func generate() -> Array[Array]:
 	var generated_map: Array[Array] = []
 	
-	for y in range(dimensions[1]):
+	for y in range(params.dimensions[1]):
 		generated_map.append([])
-		for x in range(dimensions[0]):
-			generated_map[-1].append(0)
+		for x in range(params.dimensions[0]):
+			var tile: Tile = Tile.new()
+			var position: Vector2i = Vector2i(x, y)
+			tile.type = get_tile_type(position)
+			tile.burn_state = Gamemanager.BurnState.NONE
+			tile.position = position
+			generated_map[-1].append(tile)
 	
 	return generated_map
+
+func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
+	var value: float = noise.get_noise_2d(position.x / params.scale, position.y / params.scale)
+	var forest_intensity: float = get_center_proximity(position)
+	
+	value += forest_intensity * 0.5;
+	
+	if value > 0:
+		return Gamemanager.TileType.FOREST
+	else:
+		return Gamemanager.TileType.WATER
+
+func get_center_proximity(position: Vector2i) -> float:
+	return radial_gradient.get_image().get_pixel(position.x, position.y).a
