@@ -14,12 +14,13 @@ enum SelectingType {
 }
 
 var selecting_type: SelectingType
-func duplicate_clock(position):
+func duplicate_clock(position,time,speed):
 	var new_clock = clock.duplicate()
 	new_clock.global_position = position
 	add_child(new_clock)
 	new_clock.play()
-	await get_tree().create_timer(11.5).timeout
+	new_clock.speed_scale = speed
+	await get_tree().create_timer(time).timeout
 	new_clock.queue_free()
 	
 	
@@ -37,7 +38,7 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
-		duplicate_clock(get_clicked_tile().position)
+		duplicate_clock(get_clicked_tile().position, 11.5, 0.4)
 		await get_tree().create_timer(10.0).timeout
 		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE
@@ -74,6 +75,7 @@ func duplicate_jicleur() -> Vector2:
 	new_jicleur.global_position = get_global_mouse_position()
 	add_child(new_jicleur)
 	new_jicleur.emitting = true
+	duplicate_clock(get_global_mouse_position(), 1.2, 4.2)
 	await get_tree().create_timer(1.0).timeout
 	new_jicleur.emitting = false
 	return new_jicleur.global_position
