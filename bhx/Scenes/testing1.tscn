@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=23 format=3 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
@@ -112,11 +112,9 @@ radial_gradient = ExtResource("3_2dgcj")
 
 [node name="Ground" type="TileMapLayer" parent="Game/Tilemap"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+//3/AAAAAAEAAAD+////AAAAAAEAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAP//AAAAAAEAAAAAAP7/AAAAAAEAAAD/////AAAAAAEAAAAAAAAAAAAAAAEAAAD//wIAAAAAAAEAAAAAAP3/AAAAAAEAAAABAP7/AAAAAAEAAAD+/wEAAAAAAAEAAAD+/wIAAAAAAAEAAAD+/wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAIAAAAAAAEAAAABAAEAAAAAAAEAAAABAP//AAAAAAEAAAABAP3/AAAAAAEAAAABAPz/AAAAAAEAAAAAAPv/AAAAAAEAAAAAAPz/AAAAAAEAAAD///v/AAAAAAEAAAD///z/AAAAAAEAAAD+//7/AAAAAAEAAAD+/wAAAAAAAAEAAAD9/wEAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="GroundCover" type="TileMapLayer" parent="Game/Tilemap"]
-tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAAAAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Indicatiors" type="TileMapLayer" parent="Game/Tilemap"]
@@ -143,6 +141,22 @@ amount = 30
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game"]
 position = Vector2(-7438, -3193)
 sprite_frames = SubResource("SpriteFrames_wg4tm")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Tilemap2" type="Node2D" parent="Background"]
+
+[node name="Ground" type="TileMapLayer" parent="Background/Tilemap2"]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_wjvrg")
+
+[node name="GroundCover" type="TileMapLayer" parent="Background/Tilemap2"]
+tile_set = SubResource("TileSet_wjvrg")
+
+[node name="Indicatiors" type="TileMapLayer" parent="Background/Tilemap2"]
+self_modulate = Color(1, 1, 1, 0.54902)
+position = Vector2(0, 3)
+tile_set = SubResource("TileSet_wjvrg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

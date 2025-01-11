@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsjoxy8pwp13d"]
+[gd_scene load_steps=5 format=3 uid="uid://dsjoxy8pwp13d"]
 
 [ext_resource type="Texture2D" uid="uid://capkovcdfjpkj" path="res://Graphix/background1.png" id="1_d5ak5"]
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_u78q3"]
+[ext_resource type="Script" path="res://Scripts/settings.gd" id="2_skog1"]
+[ext_resource type="Texture2D" uid="uid://cnvmulexfbj5j" path="res://Graphix/back.png" id="3_713pc"]
 
 [node name="Settings" type="Control"]
 texture_filter = 1
@@ -12,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_u78q3")
+script = ExtResource("2_skog1")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -49,3 +52,18 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_713pc")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
