@@ -10,7 +10,6 @@ var difficulty: float
 var difficulty_multiplier: float
 var min_temp: float
 var wind: Vector2
-var dryness: float
 var tick: int = 0
 var did_win: bool = false
 
