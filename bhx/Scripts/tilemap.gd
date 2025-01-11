@@ -126,8 +126,6 @@ func generate() -> Array[Tile]:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Reset"):
 		_ready()
-	if Input.is_action_just_pressed("Next Level"):
-		try_load_next_level()
 
 func get_random_tile(array: Array[Tile]) -> Tile:
 	var index: int = rng.randi_range(0, array.size() - 1)

@@ -1,15 +1,17 @@
 extends Control
-
+@onready var tilemanager: TileManager = $"../../Game/Tilemap"
 @onready var actions_list: VBoxContainer = $Actions_list
 @onready var money: Panel = $money
 @onready var wind: TextureRect = $Wind
 @onready var score: Panel = $Score
 @onready var year_title: Label = $Title
-
+@onready var cont: Button = $Button
 @export var events: Array[Event]
 var input_manager: InputManager
 
 func _ready() -> void:
+	cont.visible = false
+	cont.get_child(0).visible = false
 	input_manager = get_tree().get_first_node_in_group("InputManager")
 	for i in range(3):
 		actions_list.get_child(i).load_event(events[i])
@@ -48,12 +50,25 @@ func _process(delta: float) -> void:
 
 func animate_score(left: int, percentage: float) -> void:
 	score.scale = Vector2.ZERO
-	score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
-	var tween_scale = create_tween()
-	tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	var tweeen_rotation = create_tween()
-	tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
+	cont.visible = true
+	cont.get_child(0).visible = true
+	if left > 0:
+		cont.get_child(0).text = "Continue."
+		score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
+		var tween_scale = create_tween()
+		tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		var tweeen_rotation = create_tween()
+		tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
+	else:
+		score.get_child(0).text = "The forest completely burned down. You lose."
+		cont.get_child(0).text = "Back to menu."
+		var tween_scale = create_tween()
+		tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		var tweeen_rotation = create_tween()
+		tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
 
 
-func _on_continue_pressed() -> void:
-	pass # Replace with function body.
+func _on_button_pressed() -> void:
+	cont.visible = false
+	cont.get_child(0).visible = false
+	tilemanager.try_load_next_level()
