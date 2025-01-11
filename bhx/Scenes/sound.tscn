@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkkhjjaph75pn"]
+[gd_scene load_steps=5 format=3 uid="uid://dygxni3b3gbqs"]
 
 [ext_resource type="Script" path="res://Scripts/sound.gd" id="1_1gp7m"]
 [ext_resource type="AudioStream" uid="uid://bfb7g6xvpgl4r" path="res://Sounds/jicleur.wav" id="2_5hkww"]
