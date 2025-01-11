@@ -1,10 +1,14 @@
 class_name TileManager
 extends Node2D
 
-var map: Array[Array]
+var map: Array[Tile]
 @export var params: GeneratorParams
 @export var radial_gradient: GradientTexture2D
 var noise: FastNoiseLite
+@onready var ground: TileMapLayer = $Ground
+@onready var ground_cover: TileMapLayer = $GroundCover
+
+var offset: Vector2i
 
 func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
@@ -14,19 +18,22 @@ func _ready() -> void:
 	radial_gradient.height = params.dimensions.y
 	radial_gradient.width = params.dimensions.x
 	map = generate()
+	offset = params.dimensions / -2
 
-func generate() -> Array[Array]:
-	var generated_map: Array[Array] = []
+func _process(delta: float) -> void:
+	update_tile_map(map)
+
+func generate() -> Array[Tile]:
+	var generated_map: Array[Tile] = []
 	
 	for y in range(params.dimensions[1]):
-		generated_map.append([])
 		for x in range(params.dimensions[0]):
 			var tile: Tile = Tile.new()
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
 			tile.burn_state = Gamemanager.BurnState.NONE
 			tile.position = position
-			generated_map[-1].append(tile)
+			generated_map.append(tile)
 	
 	return generated_map
 
@@ -46,3 +53,19 @@ func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 
 func get_center_proximity(position: Vector2i) -> float:
 	return radial_gradient.get_image().get_pixel(position.x, position.y).a
+
+func update_tile_map(tiles: Array[Tile]) -> void:
+	var atlas_coords: Vector2i
+	for tile in ground.get_used_cells():
+		ground.erase_cell(tile)
+	for tile in ground_cover.get_used_cells():
+		ground_cover.erase_cell(tile)
+	
+	for tile in tiles:
+		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
+			atlas_coords = Vector2i(0, 1)
+		else:
+			atlas_coords = Vector2i(0, 2)
+		ground.set_cell(tile.position + offset, 0, atlas_coords)
+		if tile.type == Gamemanager.TileType.FOREST:
+			ground_cover.set_cell(tile.position + Vector2i(0, -1) + offset, 0, Vector2i(0, 0))
