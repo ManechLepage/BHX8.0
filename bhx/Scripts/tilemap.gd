@@ -9,7 +9,7 @@ var noise2: FastNoiseLite
 var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
-@onready var indicatiors: TileMapLayer = $Indicatiors
+@onready var indicators: TileMapLayer = $Indicatiors
 
 var offset: Vector2i
 
@@ -31,9 +31,11 @@ func _ready() -> void:
 	radial_gradient.width = params.dimensions.x
 	map = generate()
 	offset = params.dimensions / -2
+	update()
 	
-func _process(delta: float) -> void:
+func update() -> void:
 	update_tile_map(map)
+	load_water()
 
 func generate() -> Array[Tile]:
 	var generated_map: Array[Tile] = []
@@ -81,8 +83,8 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		ground.erase_cell(tile)
 	for tile in ground_cover.get_used_cells():
 		ground_cover.erase_cell(tile)
-	for tile in indicatiors.get_used_cells():
-		indicatiors.erase_cell(tile)
+	for tile in indicators.get_used_cells():
+		indicators.erase_cell(tile)
 	
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
@@ -93,4 +95,10 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		if tile.type == Gamemanager.TileType.FOREST:
 			var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
 			ground_cover.set_cell(tile.position + offset, 0, ground_atlas)
-			indicatiors.set_cell(tile.position + offset, 1, ground_atlas)
+			indicators.set_cell(tile.position + offset, 1, ground_atlas)
+
+func load_water() -> void:
+	for x in range(256):
+		for y in range(256):
+			if not ground.get_cell_tile_data(Vector2i(x, y) + offset):
+				ground.set_cell(Vector2i(x, y) + offset, 0, Vector2i(0, 2))
