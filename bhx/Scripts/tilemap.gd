@@ -21,7 +21,7 @@ func generate() -> Array[Array]:
 	for y in range(params.dimensions[1]):
 		generated_map.append([])
 		for x in range(params.dimensions[0]):
-			var tile: Tile = Gamemanager.Tile()
+			var tile: Tile = Tile.new()
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
 			tile.burn_state = Gamemanager.BurnState.NONE
@@ -32,7 +32,11 @@ func generate() -> Array[Array]:
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var value: float = noise.get_noise_2d(position.x / params.scale, position.y / params.scale)
-	if value > -0.2:
+	var forest_intensity: float = get_center_proximity(position)
+	
+	value += forest_intensity * 0.5;
+	
+	if value > 0:
 		return Gamemanager.TileType.FOREST
 	else:
 		return Gamemanager.TileType.WATER
