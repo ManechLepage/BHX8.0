@@ -2,7 +2,7 @@ class_name InputManager
 extends Node2D
 @onready var clock: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var tilemap: TileManager = $"../Tilemap"
-@onready var plane_script: Plane1 =$"../Plane"
+@onready var plane_script: Plane1 = $"../../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
 
 enum SelectingType {
