@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://cd6tbvg8khelk" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
 [ext_resource type="Texture2D" uid="uid://dkfef2l3pf67y" path="res://Graphix/arrow.png" id="10_ngwts"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" groups=["UI"]]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15

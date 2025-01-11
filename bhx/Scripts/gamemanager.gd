@@ -15,6 +15,7 @@ var tick: int = 0
 
 const tick_multiplier: float = 0.95
 
+
 enum TileType {
 	FOREST,
 	PLAINS,
@@ -101,3 +102,6 @@ func update_burn_state() -> void:
 			tile.heat = 0
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = tile.new_heat
+
+func output_score(left: int, percentage: float) -> void:
+	get_tree().get_first_node_in_group("UI").animate_score(left, percentage)
