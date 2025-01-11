@@ -11,10 +11,18 @@ var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
+@onready var timer: Timer = $Timer
 
 var start_number_of_trees: int
+<<<<<<< HEAD
 var diff: int
 var dryness_level: int = 0
+=======
+var diff: float
+var min_diff: float
+var decay: float
+var time: float
+>>>>>>> parent of 02af4a9 (Merge branch 'main' of https://github.com/ManechLepage/BHX8.0)
 
 var offset: Vector2i
 
@@ -24,24 +32,36 @@ func _ready() -> void:
 			if randi() & 1:
 				if randi() & 1:
 					wintermap = 4
-	diff = 1
+	
+	diff = 2
+	min_diff = 0.45
+	decay = 0.80
+	time = 5
 	load_level()
 
 func try_load_next_level():
 	if Gamemanager.did_win:
 		var year: int = 2020 + (diff - 1) * 10
 		rename_year_title("Date - " + str(year))
+		set_money(0)
 		hide_win_screen()
 		load_level()
-		Sound.storm()
+
 func load_level():
 	Gamemanager.did_win = false
 	update_dryness_level()
-	
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
-	Gamemanager.reset(diff)
+	Gamemanager.reset(diff, min_diff, decay)
+	timer.wait_time = time
+	
+	diff *= 1.4
+	min_diff *= 1.3
+	decay = min(0.99, decay * 1.05)
+	time *= 0.9
+	
+	print(diff, " ", min_diff, " ", decay, " ", time)
 	
 	start_number_of_trees = 0
 	for tile in map:
@@ -54,6 +74,11 @@ func load_level():
 	offset = params.dimensions / -2
 	Gamemanager.update()
 	update()
+
+func set_money(money: int) -> void:
+	get_tree().get_first_node_in_group("UI").money.money = money
+func get_money() -> int:
+	return get_tree().get_first_node_in_group("UI").money.money
 
 func rename_year_title(text: String) -> void:
 	get_tree().get_first_node_in_group("UI").year_title.text = text
@@ -205,8 +230,13 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	
 	return get_tile_from_position(generated_map, tile_position)
 
+func get_river_min() -> int:
+	return 7 / diff + 1
+func get_river_max() -> int:
+	return 11 / diff + 1
+
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
-	var number_of_rivers: int = rng.randi_range(8, 12)
+	var number_of_rivers: int = rng.randi_range(get_river_min(), get_river_max())
 	var all_water_tiles = get_all_water_tiles(generated_map)
 	all_water_tiles = get_all_close_to_land(generated_map, all_water_tiles)
 	
@@ -285,4 +315,3 @@ func update_if_player_win() -> void:
 		var left: int = get_number_of_remaining_trees()
 		Gamemanager.output_score(left, percentage)
 		Gamemanager.did_win = true
-		diff += 1
