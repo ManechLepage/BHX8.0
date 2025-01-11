@@ -162,6 +162,7 @@ offset_bottom = 138.0
 text = "Wind"
 
 [node name="Button" type="Button" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 407.0
 offset_top = 377.0
@@ -170,13 +171,14 @@ offset_bottom = 400.0
 scale = Vector2(3.82081, 4.8372)
 
 [node name="Label2" type="Label" parent="Button"]
-texture_filter = 2
+texture_filter = 1
 layout_mode = 0
 offset_left = 7.59001
 offset_top = 6.20193
 offset_right = 83.59
 offset_bottom = 21.2019
-theme_override_font_sizes/font_size = 11
+scale = Vector2(0.225, 0.225)
+theme_override_font_sizes/font_size = 50
 text = "Back to menu"
 
 [node name="Score" type="Panel" parent="."]

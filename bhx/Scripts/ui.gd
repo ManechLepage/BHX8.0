@@ -9,6 +9,8 @@ extends Control
 @export var events: Array[Event]
 var input_manager: InputManager
 
+var restart: bool
+
 func _ready() -> void:
 	cont.visible = false
 	cont.get_child(0).visible = false
@@ -34,7 +36,7 @@ func destroy() -> void:
 	if money.money - events[0].cost >= 0:
 		money.money -= events[0].cost
 		input_manager.selecting_type = input_manager.SelectingType.DESTROY1
-
+	
 func plane() -> void:
 	if money.money - events[1].cost >= 0:
 		money.money -= events[1].cost
@@ -53,6 +55,7 @@ func animate_score(left: int, percentage: float) -> void:
 	cont.visible = true
 	cont.get_child(0).visible = true
 	if left > 0:
+		restart = false
 		cont.get_child(0).text = "Continue."
 		score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
 		var tween_scale = create_tween()
@@ -60,6 +63,7 @@ func animate_score(left: int, percentage: float) -> void:
 		var tweeen_rotation = create_tween()
 		tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
 	else:
+		restart = true
 		score.get_child(0).text = "The forest completely burned down. You lose."
 		cont.get_child(0).text = "Back to menu."
 		var tween_scale = create_tween()
@@ -69,6 +73,8 @@ func animate_score(left: int, percentage: float) -> void:
 
 
 func _on_button_pressed() -> void:
+	if restart:
+		get_tree().reload_current_scene()
 	cont.visible = false
 	cont.get_child(0).visible = false
 	tilemanager.try_load_next_level()
