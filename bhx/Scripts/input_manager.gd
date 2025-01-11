@@ -19,6 +19,8 @@ func duplicate_clock(position):
 	new_clock.global_position = position
 	add_child(new_clock)
 	new_clock.play()
+	await get_tree().create_timer(11.5).timeout
+	new_clock.queue_free()
 	
 	
 func _ready() -> void:
