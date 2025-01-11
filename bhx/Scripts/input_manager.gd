@@ -1,9 +1,11 @@
 class_name InputManager
 extends Node2D
+
 @onready var clock: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var tilemap: TileManager = $"../Tilemap"
 @onready var plane_script: Plane1 = $"../../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum SelectingType {
 	NONE,
@@ -85,6 +87,7 @@ func duplicate_jicleur() -> Vector2:
 	return new_jicleur.global_position
 
 func destroy() -> void:
+	camera_2d.apply_shake(1.0)
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
 		Sound.jicle()

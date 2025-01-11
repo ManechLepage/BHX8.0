@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://yaul14r1iyb1" path="res://Sounds/Beat1.wav" id="7_pauri"]
 
 [node name="Sound" type="Node"]
+process_mode = 3
 script = ExtResource("1_1gp7m")
 
 [node name="Jicleur" type="AudioStreamPlayer" parent="."]
