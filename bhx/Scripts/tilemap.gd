@@ -9,6 +9,7 @@ var noise2: FastNoiseLite
 var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
+@onready var indicatiors: TileMapLayer = $Indicatiors
 
 var offset: Vector2i
 
@@ -80,6 +81,8 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		ground.erase_cell(tile)
 	for tile in ground_cover.get_used_cells():
 		ground_cover.erase_cell(tile)
+	for tile in indicatiors.get_used_cells():
+		indicatiors.erase_cell(tile)
 	
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
@@ -88,4 +91,6 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
 		if tile.type == Gamemanager.TileType.FOREST:
-			ground_cover.set_cell(tile.position + offset, 0, Vector2i(0, 0))
+			var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
+			ground_cover.set_cell(tile.position + offset, 0, ground_atlas)
+			indicatiors.set_cell(tile.position + offset, 1, ground_atlas)

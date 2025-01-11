@@ -46,6 +46,10 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 3)
 0:1/0 = 0
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 3)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 3)
 
 [sub_resource type="TileSet" id="TileSet_wjvrg"]
 tile_shape = 1
@@ -68,12 +72,11 @@ tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+//3/AAAAAAE
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="GroundCover" type="TileMapLayer" parent="Tilemap"]
-tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAABAAAAAAD///3/AAACAAAAAAA=")
+tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Indicatiors" type="TileMapLayer" parent="Tilemap"]
-visible = false
-tile_map_data = PackedByteArray("AAAAAP7/AQAAAAAAAAD///3/AQAAAAAAAAD///7/AQAAAAAAAAA=")
+position = Vector2(0, 3)
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
