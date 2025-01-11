@@ -48,19 +48,8 @@ func _process(delta: float) -> void:
 
 func animate_score(left: int, percentage: float) -> void:
 	score.scale = Vector2.ZERO
-	if left > 0:
-		score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
-		var tween_scale = create_tween()
-		tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		var tweeen_rotation = create_tween()
-		tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
-	else:
-		score.get_child(0).text = "The forest completely burned down. You lose!"
-		var tween_scale = create_tween()
-		tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		var tweeen_rotation = create_tween()
-		tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
-
-
-func _on_button_pressed() -> void:
-	pass # Replace with function body.
+	score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
+	var tween_scale = create_tween()
+	tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	var tweeen_rotation = create_tween()
+	tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)

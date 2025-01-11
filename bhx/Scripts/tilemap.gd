@@ -15,12 +15,10 @@ var noise_plains: FastNoiseLite
 
 var start_number_of_trees: int
 var dryness_level: int = 0
-
 var diff: float
 var min_diff: float
 var decay: float
 var time: float
-
 var offset: Vector2i
 
 func _ready() -> void:
@@ -53,9 +51,9 @@ func load_level():
 	Gamemanager.reset(diff, min_diff, decay)
 	timer.wait_time = time
 	
-	diff += 1
-	min_diff += 0.1
-	decay = min(0.99, decay * 1.01)
+	diff += 1.5
+	min_diff += 0.2
+	decay = min(0.99, decay * 1.05)
 	time *= 1	
 	
 	start_number_of_trees = 0
@@ -139,7 +137,7 @@ func load_water() -> void:
 	for x in range(256):
 		for y in range(256):
 			if not ground.get_cell_tile_data(Vector2i(x, y) + offset - Vector2i(128, 128)):
-				ground.set_cell(Vector2i(x, y) + offset - Vector2i(128, 128), 0, Vector2i(0, 2))
+				ground.set_cell(Vector2i(x, y) + offset - Vector2i(128, 128), 0, Vector2i(dryness_level, 2))
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var used_position: Vector2 = Vector2(position.x, position.y / 2)
@@ -226,9 +224,9 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	return get_tile_from_position(generated_map, tile_position)
 
 func get_river_min() -> int:
-	return 7 / diff + 1
+	return 10 / (diff / 5) + 1
 func get_river_max() -> int:
-	return 11 / diff + 1
+	return 14 / (diff / 5) + 1
 
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 	var number_of_rivers: int = rng.randi_range(get_river_min(), get_river_max())
