@@ -4,7 +4,7 @@ extends Node2D
 var map: Array[Array]
 @export var params: GeneratorParams
 @export var radial_gradient: GradientTexture2D
-var noise: Noise
+var noise: FastNoiseLite
 
 func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
@@ -31,7 +31,7 @@ func generate() -> Array[Array]:
 	return generated_map
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
-	var value: float = noise.get_noise_2d(position.x / params.scale, position.y / params.scale)
+	var value: float = noise.get_noise_2dv(position / params.scale)
 	var forest_intensity: float = get_center_proximity(position)
 	
 	value += forest_intensity * 0.5;
