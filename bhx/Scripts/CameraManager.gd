@@ -8,7 +8,7 @@ const ZOOM_INCREMENT: float = 0.8
 
 const ZOOM_RATE: float = 8.0
 
-@export var shake_fade: float
+var shake_fade: float
 
 var rng = RandomNumberGenerator.new()
 
@@ -41,7 +41,8 @@ func _physics_process(delta: float) -> void:
 	)
 	set_physics_process(not is_equal_approx(zoom.x, target_zoom))
 
-func apply_shake(strength) -> void:
+func apply_shake(strength: float, _shake_fade: float) -> void:
+	shake_fade = _shake_fade
 	shake_strength = strength
 
 func _process(delta: float) -> void:

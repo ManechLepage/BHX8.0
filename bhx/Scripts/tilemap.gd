@@ -38,6 +38,7 @@ func try_load_next_level():
 	if Gamemanager.did_win:
 		var year: int = 2020 + (diff - 1) * 10
 		rename_year_title("Date - " + str(year))
+		set_money(0)
 		hide_win_screen()
 		load_level()
 
@@ -68,6 +69,11 @@ func load_level():
 	offset = params.dimensions / -2
 	Gamemanager.update()
 	update()
+
+func set_money(money: int) -> void:
+	get_tree().get_first_node_in_group("UI").money.money = money
+func get_money() -> int:
+	return get_tree().get_first_node_in_group("UI").money.money
 
 func rename_year_title(text: String) -> void:
 	get_tree().get_first_node_in_group("UI").year_title.text = text
@@ -214,8 +220,13 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	
 	return get_tile_from_position(generated_map, tile_position)
 
+func get_river_min() -> int:
+	return 7 / diff + 1
+func get_river_max() -> int:
+	return 11 / diff + 1
+
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
-	var number_of_rivers: int = rng.randi_range(8, 12)
+	var number_of_rivers: int = rng.randi_range(get_river_min(), get_river_max())
 	var all_water_tiles = get_all_water_tiles(generated_map)
 	all_water_tiles = get_all_close_to_land(generated_map, all_water_tiles)
 	
