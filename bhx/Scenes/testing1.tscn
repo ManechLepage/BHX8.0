@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=12 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
-[ext_resource type="Texture2D" uid="uid://d1cx3km72sb1c" path="res://Resources/Grad2.tres" id="3_2dgcj"]
+[ext_resource type="Resource" uid="uid://cp1ta8sndkuj2" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Texture2D" uid="uid://boo2v5ap5unos" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
+[ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -90,5 +91,9 @@ script = ExtResource("5_3eim0")
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("7_rwkuo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("8_3idkp")]
 
 [connection signal="timeout" from="Tilemap/Timer" to="Tilemap" method="_on_timer_timeout"]
