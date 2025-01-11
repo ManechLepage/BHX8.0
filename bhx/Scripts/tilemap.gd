@@ -5,6 +5,8 @@ var map: Array[Tile]
 @export var params: GeneratorParams
 @export var radial_gradient: GradientTexture2D
 var noise: FastNoiseLite
+var noise2: FastNoiseLite
+var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 
@@ -15,11 +17,20 @@ func _ready() -> void:
 	noise = FastNoiseLite.new()
 	noise.seed = params.seed
 	noise.noise_type = params.noise_type
+	
+	noise2 = FastNoiseLite.new()
+	noise2.seed = params.seed * 2
+	noise2.noise_type = params.noise_type
+	
+	noise_plains = FastNoiseLite.new()
+	noise_plains.seed = params.seed * 3
+	noise_plains.noise_type = params.noise_type
+	
 	radial_gradient.height = params.dimensions.y
 	radial_gradient.width = params.dimensions.x
 	map = generate()
 	offset = params.dimensions / -2
-
+	
 func _process(delta: float) -> void:
 	update_tile_map(map)
 
@@ -38,13 +49,18 @@ func generate() -> Array[Tile]:
 	return generated_map
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
-	var value: float = noise.get_noise_2dv(position / params.scale)
-	var forest_intensity: float = get_center_proximity(position)
+	var used_position: Vector2 = Vector2(position.x, position.y / 2)
+	var value1: float = noise.get_noise_2dv(used_position / params.scale * 5)
+	var value2: float = noise.get_noise_2dv(used_position / params.scale * 20)
 	
-	value += forest_intensity * 0.5;
+	var value: float = value1 * 0.75 + value2 * 0.25
+	var forest_intensity: float = get_center_proximity(position) * 1.25 - 1
+	# forest_intensity = 0: value += -1, forest_intensity = 1, value += 0.15
 	
-	if value > 0:
-		if randi_range(1, 10) != 1:
+	value -= forest_intensity * 1;
+	
+	if value > 0.4:
+		if noise_plains.get_noise_2dv(used_position / params.scale * 50) > -0.2:
 			return Gamemanager.TileType.FOREST
 		else:
 			return Gamemanager.TileType.PLAINS
@@ -52,7 +68,7 @@ func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 		return Gamemanager.TileType.WATER
 
 func get_center_proximity(position: Vector2i) -> float:
-	return radial_gradient.get_image().get_pixel(position.x, position.y).a
+	return radial_gradient.get_image().get_pixel(position.x, position.y).r
 
 func update_tile_map(tiles: Array[Tile]) -> void:
 	var atlas_coords: Vector2i
