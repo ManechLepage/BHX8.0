@@ -1,18 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=7 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
+[ext_resource type="Texture2D" uid="uid://bc54h2if8yp0h" path="res://Graphix/tiles.png" id="2_x6o17"]
+[ext_resource type="Resource" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Texture2D" uid="uid://boo2v5ap5unos" path="res://Resources/Grad2.tres" id="3_2dgcj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
+texture = ExtResource("2_x6o17")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 2)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 2)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, 2)
+0:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_wjvrg"]
 tile_shape = 1
 tile_size = Vector2i(32, 16)
+sources/0 = SubResource("TileSetAtlasSource_7vmj5")
 
 [node name="Main" type="Node2D"]
+texture_filter = 1
 
 [node name="Tilemap" type="Node2D" parent="."]
 script = ExtResource("1_eqtw3")
+params = ExtResource("2_x7ngu")
+radial_gradient = ExtResource("3_2dgcj")
 
 [node name="Ground" type="TileMapLayer" parent="Tilemap"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+////AAAAAAIAAAD+/wAAAAAAAAIAAAD+/wEAAAAAAAIAAAD//wIAAAAAAAIAAAD//wEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAP//AAAAAAEAAAAAAP7/AAAAAAEAAAD/////AAAAAAEAAAD//wAAAAAAAAIAAAAAAAAAAAAAAAEAAAABAAIAAAAAAAEAAAAAAAMAAAAAAAEAAAD//wMAAAAAAAEAAAD+/wMAAAAAAAIAAAD+//7/AAAAAAEAAAD9////AAAAAAEAAAD9/wAAAAAAAAEAAAD9/wEAAAAAAAEAAAD9/wIAAAAAAAEAAAD+/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD+/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD+/wUAAAAAAAEAAAD//wQAAAAAAAEAAAD+//3/AAAAAAEAAAD9//3/AAAAAAEAAAD9//7/AAAAAAEAAAD8////AAAAAAEAAAD8/wEAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="GroundCover" type="TileMapLayer" parent="Tilemap"]
+tile_map_data = PackedByteArray("AAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD8/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wQAAAAAAAAAAAD+//7/AAAAAAAAAAD+//3/AAAAAAAAAAD///7/AAAAAAAAAAD/////AAAAAAAAAAAAAP7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAD///3/AAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
