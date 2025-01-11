@@ -12,9 +12,16 @@ var noise_plains: FastNoiseLite
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
 
+	
+
 var offset: Vector2i
 
 func _ready() -> void:
+	if randi() & 1:
+		if randi() & 1:
+			if randi() & 1:
+				if randi() & 1:
+					wintermap = 4
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
@@ -112,12 +119,7 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		ground_cover.erase_cell(tile)
 	for tile in indicators.get_used_cells():
 		indicators.erase_cell(tile)
-	
-	if randi() & 1:
-		if randi() & 1:
-			if randi() & 1:
-				if randi() & 1:
-					wintermap = 4
+
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
 			atlas_coords = Vector2i(wintermap, 1)
