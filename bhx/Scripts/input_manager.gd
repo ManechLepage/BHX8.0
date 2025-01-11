@@ -24,7 +24,11 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 
 func destroy() -> void:
-	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position())
-	if tilemap.get_tile_from_position(tilemap.map, coords + tilemap.offset).type == Game.TileType.FOREST:
-		tilemap.map.erase(tilemap.get_tile_from_position(tilemap.map, coords))
+	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
+	if coords.y % 2 == 0:
+		coords += Vector2i(0, 1)
+	else:
+		coords += Vector2i(0, 1)
+	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
+		tilemap.delete_forest(coords)
 		tilemap.update()

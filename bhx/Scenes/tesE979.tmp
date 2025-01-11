@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
-[ext_resource type="Texture2D" uid="uid://cd5yxqsn1afe6" path="res://Resources/Grad2.tres" id="3_2dgcj"]
+[ext_resource type="Resource" uid="uid://cp1ta8sndkuj2" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Texture2D" uid="uid://boo2v5ap5unos" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
@@ -73,7 +73,7 @@ tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+//3/AAAAAAE
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="GroundCover" type="TileMapLayer" parent="Tilemap"]
-tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAAAAAEAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Indicatiors" type="TileMapLayer" parent="Tilemap"]

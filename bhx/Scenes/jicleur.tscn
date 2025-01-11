@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf5soxq4dqwk0"]
+
+[ext_resource type="Texture2D" uid="uid://raq67ns1anx5" path="res://Graphix/drop.png" id="1_fgi1p"]
+
+[sub_resource type="Gradient" id="Gradient_uvmjl"]
+colors = PackedColorArray(0.580566, 0.718013, 1, 1, 0.0395615, 0.0821653, 0.617486, 1)
+
+[node name="Node2D" type="CPUParticles2D"]
+texture_filter = 1
+amount = 200
+texture = ExtResource("1_fgi1p")
+emission_shape = 3
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, 1)
+initial_velocity_max = 206.19
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_uvmjl")
