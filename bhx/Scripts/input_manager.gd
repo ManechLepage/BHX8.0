@@ -105,3 +105,5 @@ func destroy() -> void:
 			coords += Vector2i(0, 1)
 		tilemap.delete_forest(coords)
 		tilemap.update()
+	else:
+		tilemap.set_money(tilemap.get_money() + 100)
