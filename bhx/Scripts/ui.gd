@@ -53,3 +53,7 @@ func animate_score(left: int, percentage: float) -> void:
 	tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	var tweeen_rotation = create_tween()
 	tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
+
+
+func _on_continue_pressed() -> void:
+	pass # Replace with function body.
