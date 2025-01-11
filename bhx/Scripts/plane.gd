@@ -16,7 +16,6 @@ func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 	get_parent().add_child(plane_scene)
 	plane_scene.position = tilemap.ground.map_to_local(lowest_tile.position)
 	
-	
 	Sound.plane()
 	var tiles: Array[Tile] = []
 	var tileManager: TileManager = get_tree().get_first_node_in_group("TileMap")
