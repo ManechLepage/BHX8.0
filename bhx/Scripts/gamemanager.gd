@@ -98,7 +98,7 @@ func update_burn_state() -> void:
 		tile.accumulated_heat += tile.heat
 		if tile.accumulated_heat > BURN_THRESHOLD and tile.burn_state != BurnState.NONE:
 			tile.burn_state = BurnState.BURNT
-			tile.heat = 0
+			tile.new_heat = 0
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = tile.new_heat
 
