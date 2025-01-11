@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://vq6wprpaeka"]
+[gd_scene load_steps=10 format=3 uid="uid://dhlvbb137uhcy"]
 
 [ext_resource type="PackedScene" uid="uid://cf5soxq4dqwk0" path="res://Scenes/jicleur.tscn" id="1_h1hfn"]
 [ext_resource type="Script" path="res://Scripts/plane2.gd" id="1_yf468"]
