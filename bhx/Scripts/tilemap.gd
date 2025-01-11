@@ -5,6 +5,7 @@ var map: Array[Tile]
 @export var params: GeneratorParams
 @export var radial_gradient: GradientTexture2D
 var noise: FastNoiseLite
+var noise2: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 
@@ -15,11 +16,16 @@ func _ready() -> void:
 	noise = FastNoiseLite.new()
 	noise.seed = params.seed
 	noise.noise_type = params.noise_type
+	
+	noise2 = FastNoiseLite.new()
+	noise2.seed = params.seed * 2
+	noise2.noise_type = params.noise_type
+	
 	radial_gradient.height = params.dimensions.y
 	radial_gradient.width = params.dimensions.x
 	map = generate()
 	offset = params.dimensions / -2
-
+	
 func _process(delta: float) -> void:
 	update_tile_map(map)
 
@@ -38,10 +44,15 @@ func generate() -> Array[Tile]:
 	return generated_map
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
-	var value: float = noise.get_noise_2dv(position / params.scale)
-	var forest_intensity: float = get_center_proximity(position)
+	var used_position: Vector2 = Vector2(position.x, position.y / 2)
+	var value1: float = noise.get_noise_2dv(used_position / params.scale * 5)
+	var value2: float = noise.get_noise_2dv(used_position / params.scale * 20)
 	
-	value += forest_intensity * 0.5;
+	var value: float = value1 * 0.75 + value2 * 0.25
+	
+	var forest_intensity: float = get_center_proximity(position) * 2 - 1
+	
+	value -= forest_intensity * 0.5;
 	
 	if value > 0:
 		if randi_range(1, 10) != 1:
@@ -52,7 +63,7 @@ func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 		return Gamemanager.TileType.WATER
 
 func get_center_proximity(position: Vector2i) -> float:
-	return radial_gradient.get_image().get_pixel(position.x, position.y).a
+	return radial_gradient.get_image().get_pixel(position.x, position.y).r
 
 func update_tile_map(tiles: Array[Tile]) -> void:
 	var atlas_coords: Vector2i
