@@ -60,7 +60,7 @@ func duplicate_jicleur() -> Vector2:
 	await get_tree().create_timer(1.0).timeout
 	new_jicleur.emitting = false
 	return new_jicleur.global_position
-	
+
 func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
