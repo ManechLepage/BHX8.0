@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=23 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cn5umdfms0dnj" path="res://Graphix/clock4.png" id="15_nq8i4"]
 [ext_resource type="Texture2D" uid="uid://csn8b40jxcrxe" path="res://Graphix/clock5.png" id="16_ojtjj"]
 [ext_resource type="PackedScene" uid="uid://c1p0xeutrji8n" path="res://Scenes/menu.tscn" id="17_ucfh6"]
+[ext_resource type="PackedScene" uid="uid://dsjoxy8pwp13d" path="res://Scenes/settings.tscn" id="18_fndpc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -149,5 +150,12 @@ sprite_frames = SubResource("SpriteFrames_wg4tm")
 
 [node name="Menu" parent="CanvasLayer" instance=ExtResource("17_ucfh6")]
 visible = false
+
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("18_fndpc")]
+visible = false
+offset_left = -12.0
+offset_top = -10.0
+offset_right = -12.0
+offset_bottom = -10.0
 
 [connection signal="timeout" from="Game/Tilemap/Timer" to="Game/Tilemap" method="_on_timer_timeout"]
