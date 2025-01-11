@@ -32,29 +32,36 @@ func _input(event: InputEvent) -> void:
 	var did_do_something: bool = false
 	if Input.is_action_just_pressed("Test1"):
 		selecting_type = SelectingType.DESTROY1
-		did_do_something = true
+		get_tree().get_first_node_in_group("TileMap").update_if_player_win()
+
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.DESTROY1:
+		selecting_type = SelectingType.NONE
 		destroy()
-		selecting_type = SelectingType.NONE
-		did_do_something = true
+
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
+<<<<<<< HEAD
 		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
-		await get_tree().create_timer(10.0).timeout
-		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
+=======
 		selecting_type = SelectingType.NONE
-		did_do_something = true
+		var clicked_pos: Vector2 = get_clicked_tile().position
+		duplicate_clock(get_clicked_tile().position, 11.5, 0.4)
+>>>>>>> ea7e77405c943559234bd11a1f78285904d8125e
+		await get_tree().create_timer(10.0).timeout
+		plane_script.plane_function(tilemap.map, clicked_pos)
+
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
+<<<<<<< HEAD
 		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
 		await get_tree().create_timer(10.0).timeout
+=======
+		selecting_type = SelectingType.NONE
+>>>>>>> ea7e77405c943559234bd11a1f78285904d8125e
 		var clicked_position: Vector2 = get_clicked_tile().position
 		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
+		await get_tree().create_timer(10.0).timeout
 		for center in centers:
 			plane_script.plane_function(tilemap.map, center)
-		selecting_type = SelectingType.NONE
-		did_do_something = true
-	
-	if did_do_something:
-		get_tree().get_first_node_in_group("TileMap").update_if_player_win()
+
 
 func get_clicked_tile() -> Tile:
 	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
