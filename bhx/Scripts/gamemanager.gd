@@ -45,6 +45,9 @@ func reset() -> void:
 	strength_noise.seed = randi_range(0, 1000)
 	dir_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	strength_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	for tile in tiles:
+		tile.heat = 0
+		tile.BurnState = BurnState.NONE
 	
 func update() -> void:
 	tick += 1
