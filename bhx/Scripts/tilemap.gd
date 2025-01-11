@@ -38,7 +38,7 @@ func try_load_next_level():
 	if Gamemanager.did_win:
 		var year: int = 2020 + (diff - 1) * 10
 		rename_year_title("Date - " + str(year))
-		set_money(0)
+		set_money(1100)
 		hide_win_screen()
 		load_level()
 
@@ -54,9 +54,7 @@ func load_level():
 	diff *= 1.4
 	min_diff *= 1.3
 	decay = min(0.99, decay * 1.05)
-	time *= 0.9
-	
-	print(diff, " ", min_diff, " ", decay, " ", time)
+	time *= 1	
 	
 	start_number_of_trees = 0
 	for tile in map:

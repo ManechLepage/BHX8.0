@@ -12,11 +12,11 @@ func _ready() -> void:
 
 
 func _on_money_timer_timeout() -> void:
-	money_label.text = "+1000"
-	money += 1000
+	money_label.text = "+500"
+	money += 500
 	Sound.dinero()
 	dont_change = true
-	await get_tree().create_timer(1.1).timeout
+	await get_tree().create_timer(0.55).timeout
 	dont_change = false
 
 func _process(delta: float) -> void:
