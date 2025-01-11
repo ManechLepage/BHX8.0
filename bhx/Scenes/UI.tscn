@@ -1,105 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://wg7mhspgfhvf"]
+[gd_scene load_steps=2 format=3 uid="uid://wg7mhspgfhvf"]
 
-[ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_1tach"]
 [ext_resource type="PackedScene" uid="uid://biip1gkj8dqqj" path="res://Scenes/button.tscn" id="1_h5drg"]
-[ext_resource type="Script" path="res://Scenes/money.gd" id="2_aeoyg"]
-[ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
 
 [node name="Control" type="Control"]
-texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = -2.0
+offset_right = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_1tach")
 
-[node name="Actions_list" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.885
-anchor_top = 0.059
-anchor_right = 0.972
-anchor_bottom = 0.926
-offset_left = 0.479919
-offset_top = -0.232002
-offset_right = 0.255981
-offset_bottom = -0.0480347
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 38.0
+offset_right = 1120.0
+offset_bottom = 343.0
 
-[node name="Destroy" parent="Actions_list" instance=ExtResource("1_h5drg")]
+[node name="Button" parent="VBoxContainer" instance=ExtResource("1_h5drg")]
 layout_mode = 2
-
-[node name="Money" type="ReferenceRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.011
-anchor_top = 0.025
-anchor_right = 0.252
-anchor_bottom = 0.154
-offset_left = 0.349999
-offset_top = -0.200001
-offset_right = 0.199982
-offset_bottom = 0.207993
-
-[node name="Actions" type="ReferenceRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.885
-anchor_top = 0.054
-anchor_right = 0.972
-anchor_bottom = 0.921
-offset_left = 0.479919
-offset_top = 0.00799942
-offset_right = 0.255981
-offset_bottom = 0.191956
-
-[node name="money" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.011
-anchor_top = 0.023
-anchor_right = 0.251
-anchor_bottom = 0.153
-offset_left = 0.349999
-offset_top = 0.0959988
-offset_right = 0.349976
-offset_bottom = -0.144005
-script = ExtResource("2_aeoyg")
-
-[node name="Money" type="Label" parent="money"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.025
-anchor_top = 0.083
-anchor_right = 0.562
-anchor_bottom = 0.905
-offset_left = 0.0999999
-offset_top = 0.0279999
-offset_right = -0.112015
-offset_bottom = -0.0200043
-theme_override_font_sizes/font_size = 50
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Money_timer" type="Timer" parent="money/Money"]
-wait_time = 6.0
-autostart = true
-
-[node name="Money_icon" type="TextureRect" parent="money"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.687
-anchor_top = 0.104
-anchor_right = 0.956
-anchor_bottom = 0.872
-offset_left = -0.0680084
-offset_right = 0.0159912
-texture = ExtResource("4_jcmds")
-
-[connection signal="timeout" from="money/Money/Money_timer" to="money" method="_on_money_timer_timeout"]

@@ -1,84 +1,18 @@
-[gd_scene load_steps=10 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=3 format=3 uid="uid://b5u35fxxajsc8"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
-[ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
-[ext_resource type="Texture2D" uid="uid://d1cx3km72sb1c" path="res://Resources/Grad2.tres" id="3_2dgcj"]
-[ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
-[ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
-texture = ExtResource("2_x6o17")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 2)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, 2)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 2)
-0:3/0 = 0
-0:4/0 = 0
-0:5/0 = 0
-1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, 3)
-2:0/0 = 0
-2:0/0/texture_origin = Vector2i(0, 3)
-3:0/0 = 0
-3:0/0/texture_origin = Vector2i(0, 3)
-3:1/0 = 0
-3:1/0/texture_origin = Vector2i(0, 3)
-2:1/0 = 0
-2:1/0/texture_origin = Vector2i(0, 3)
-1:1/0 = 0
-1:1/0/texture_origin = Vector2i(0, 3)
-1:2/0 = 0
-1:2/0/texture_origin = Vector2i(0, 3)
-2:2/0 = 0
-2:2/0/texture_origin = Vector2i(0, 3)
-3:2/0 = 0
-3:2/0/texture_origin = Vector2i(0, 3)
-4:0/0 = 0
-4:0/0/texture_origin = Vector2i(0, 3)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_se1w2"]
-texture = ExtResource("5_gteg3")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 3)
-0:1/0 = 0
-1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, 3)
-2:0/0 = 0
-2:0/0/texture_origin = Vector2i(0, 3)
 
 [sub_resource type="TileSet" id="TileSet_wjvrg"]
 tile_shape = 1
 tile_size = Vector2i(32, 16)
-sources/0 = SubResource("TileSetAtlasSource_7vmj5")
-sources/1 = SubResource("TileSetAtlasSource_se1w2")
 
 [node name="Main" type="Node2D"]
-texture_filter = 1
-position = Vector2(-12, -10)
 
-[node name="Tilemap" type="Node2D" parent="."]
+[node name="Tilemap" type="Node2D" parent="." groups=["TileMap"]]
 script = ExtResource("1_eqtw3")
-params = ExtResource("2_x7ngu")
-radial_gradient = ExtResource("3_2dgcj")
 
 [node name="Ground" type="TileMapLayer" parent="Tilemap"]
-y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+//3/AAAAAAEAAAD+////AAAAAAEAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAP//AAAAAAEAAAAAAP7/AAAAAAEAAAD/////AAAAAAEAAAAAAAAAAAAAAAEAAAD//wIAAAAAAAEAAAAAAP3/AAAAAAEAAAABAP7/AAAAAAEAAAD+/wEAAAAAAAEAAAD+/wIAAAAAAAEAAAD+/wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAIAAAAAAAEAAAABAAEAAAAAAAEAAAABAP//AAAAAAEAAAABAP3/AAAAAAEAAAABAPz/AAAAAAEAAAAAAPv/AAAAAAEAAAAAAPz/AAAAAAEAAAD///v/AAAAAAEAAAD///z/AAAAAAEAAAD+//7/AAAAAAEAAAD+/wAAAAAAAAEAAAD9/wEAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="GroundCover" type="TileMapLayer" parent="Tilemap"]
-tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
-
-[node name="Indicatiors" type="TileMapLayer" parent="Tilemap"]
-position = Vector2(0, 3)
-tile_set = SubResource("TileSet_wjvrg")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
-script = ExtResource("5_3eim0")
