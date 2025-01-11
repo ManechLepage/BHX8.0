@@ -50,8 +50,8 @@ func _input(event: InputEvent) -> void:
 
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
 		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
-		await get_tree().create_timer(10.0).timeout
 		selecting_type = SelectingType.NONE
+		await get_tree().create_timer(10.0).timeout
 
 		var clicked_position: Vector2 = get_clicked_tile().position
 		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
@@ -86,7 +86,8 @@ func duplicate_jicleur() -> Vector2:
 
 func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
-	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
+	var t: Tile = tilemap.get_tile_from_position(tilemap.map, coords)
+	if t.type == Game.TileType.FOREST and t.heat < 0.1:
 		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
 		if coords.y % 2 == 0:
