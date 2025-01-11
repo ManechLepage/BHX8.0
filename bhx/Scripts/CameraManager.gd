@@ -11,7 +11,7 @@ const ZOOM_RATE: float = 8.0
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if event.button_mask == MOUSE_BUTTON_MASK_RIGHT:
-			position -= event.relative * zoom / 10
+			position -= event.relative / zoom / 1.5
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
