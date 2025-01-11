@@ -11,7 +11,9 @@ var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
+
 var start_number_of_trees: int
+var diff: int
 
 var offset: Vector2i
 
@@ -21,10 +23,24 @@ func _ready() -> void:
 			if randi() & 1:
 				if randi() & 1:
 					wintermap = 4
+	
+	diff = 1
+	load_level()
+
+func try_load_next_level():
+	if Gamemanager.did_win:
+		var year: int = 2020 + (diff - 1) * 10
+		rename_year_title("Date - " + str(year))
+		hide_win_screen()
+		load_level()
+
+func load_level():
+	Gamemanager.did_win = false
+	
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
-	Gamemanager.reset(2)
+	Gamemanager.reset(diff)
 	
 	start_number_of_trees = 0
 	for tile in map:
@@ -35,9 +51,14 @@ func _ready() -> void:
 	get_random_tile(forest_tiles).heat = 1
 	
 	offset = params.dimensions / -2
-	
 	Gamemanager.update()
 	update()
+
+func rename_year_title(text: String) -> void:
+	get_tree().get_first_node_in_group("UI").year_title.text = text
+
+func hide_win_screen() -> void:
+	get_tree().get_first_node_in_group("UI").score.scale = Vector2.ZERO
 
 func update() -> void:
 	update_tile_map(map)
@@ -82,6 +103,8 @@ func generate() -> Array[Tile]:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Reset"):
 		_ready()
+	if Input.is_action_just_pressed("Next Level"):
+		try_load_next_level()
 
 func get_random_tile(array: Array[Tile]) -> Tile:
 	var index: int = rng.randi_range(0, array.size() - 1)
@@ -256,3 +279,4 @@ func update_if_player_win() -> void:
 		var left: int = get_number_of_remaining_trees()
 		Gamemanager.output_score(left, percentage)
 		Gamemanager.did_win = true
+		diff += 1
