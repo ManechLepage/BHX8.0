@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1p0xeutrji8n"]
+[gd_scene load_steps=3 format=3 uid="uid://c1p0xeutrji8n"]
 
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_d7hh4"]
+[ext_resource type="Texture2D" uid="uid://bodm2bxk1jvb" path="res://Graphix/settings.png" id="2_vqigq"]
 
 [node name="Menu" type="Control"]
 texture_filter = 1
@@ -11,6 +12,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_d7hh4")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 72.0
+offset_right = 113.0
+offset_bottom = 157.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 96
+text = "JICLEUR DE FEU"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -33,7 +50,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 96
+theme_override_colors/font_color = Color(0.293162, 0.582818, 0.495359, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 80
 text = "Start"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 471.0
+offset_top = -320.0
+offset_right = 571.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vqigq")
