@@ -1,7 +1,22 @@
 class_name Plane1
 extends Node
 
+@onready var tilemap: TileManager = $"../Tilemap"
+
+@export var plane: PackedScene
+
 func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
+	var lowest_y: int = 200
+	var lowest_tile: Tile
+	for tile in map:
+		if tile.position.y < lowest_y:
+			lowest_y = tile.position.y
+			lowest_tile = tile
+	var plane_scene = plane.instantiate()
+	get_parent().add_child(plane_scene)
+	plane_scene.position = tilemap.ground.map_to_local(lowest_tile.position)
+	
+	
 	Sound.plane()
 	var tiles: Array[Tile] = []
 	var tileManager: TileManager = get_tree().get_first_node_in_group("TileMap")

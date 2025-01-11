@@ -1,5 +1,15 @@
-[gd_scene format=3 uid="uid://dhlvbb137uhcy"]
+[gd_scene load_steps=4 format=3 uid="uid://dhlvbb137uhcy"]
+
+[ext_resource type="PackedScene" uid="uid://cf5soxq4dqwk0" path="res://Scenes/jicleur.tscn" id="1_h1hfn"]
+[ext_resource type="Script" path="res://Scripts/plane2.gd" id="1_yf468"]
+[ext_resource type="Texture2D" uid="uid://bxp6dbyuve835" path="res://Graphix/plane.png" id="2_jpiju"]
 
 [node name="Plane" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_yf468")
+
+[node name="Node2D" parent="." instance=ExtResource("1_h1hfn")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(-2.5, 2.5)
+texture = ExtResource("2_jpiju")
