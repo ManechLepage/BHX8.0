@@ -6,6 +6,7 @@ extends Node2D
 @onready var plane_script: Plane1 = $"../../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
 @onready var camera_2d: Camera2D = $"../Camera2D"
+@onready var control: Control = $"../../CanvasLayer/Control"
 
 enum SelectingType {
 	NONE,
@@ -102,4 +103,4 @@ func destroy() -> void:
 		tilemap.delete_forest(coords)
 		tilemap.update()
 	else:
-		tilemap.set_money(tilemap.get_money() + 100)
+		control.money.money += 100
