@@ -11,9 +11,13 @@ var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
+@onready var timer: Timer = $Timer
 
 var start_number_of_trees: int
-var diff: int
+var diff: float
+var min_diff: float
+var decay: float
+var time: float
 
 var offset: Vector2i
 
@@ -24,7 +28,10 @@ func _ready() -> void:
 				if randi() & 1:
 					wintermap = 4
 	
-	diff = 1
+	diff = 2
+	min_diff = 0.45
+	decay = 0.80
+	time = 5
 	load_level()
 
 func try_load_next_level():
@@ -40,7 +47,15 @@ func load_level():
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
-	Gamemanager.reset(diff)
+	Gamemanager.reset(diff, min_diff, decay)
+	timer.wait_time = time
+	
+	diff *= 1.4
+	min_diff *= 1.3
+	decay = min(0.99, decay * 1.05)
+	time *= 0.9
+	
+	print(diff, " ", min_diff, " ", decay, " ", time)
 	
 	start_number_of_trees = 0
 	for tile in map:
@@ -279,4 +294,3 @@ func update_if_player_win() -> void:
 		var left: int = get_number_of_remaining_trees()
 		Gamemanager.output_score(left, percentage)
 		Gamemanager.did_win = true
-		diff += 1
