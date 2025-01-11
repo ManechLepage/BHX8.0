@@ -1,9 +1,13 @@
 extends Control
+
 @onready var actions_list: VBoxContainer = $Actions_list
+@onready var money: Panel = $money
 
 @export var events: Array[Event]
+var input_manager: InputManager
 
 func _ready() -> void:
+	input_manager = get_tree().get_first_node_in_group("InputManager")
 	for i in range(3):
 		actions_list.get_child(i).load_event(events[i])
 		if i == 0:
@@ -14,10 +18,10 @@ func _ready() -> void:
 			actions_list.get_child(i).pressed.connect(plane_ultimate)
 
 func destroy() -> void:
-	pass
+	input_manager.selecting_type = input_manager.SelectingType.DESTROY1
 
 func plane() -> void:
-	pass
+	input_manager.selecting_type = input_manager.SelectingType.PLANE1
 
 func plane_ultimate() -> void:
-	pass
+	input_manager.selecting_type = input_manager.SelectingType.PLANE2
