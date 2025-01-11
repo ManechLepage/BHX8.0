@@ -4,11 +4,11 @@ extends Node
 const DIR_SPEED: float = 4
 const STRENGTH_SPEED: float = 8
 const BURN_THRESHOLD: float = 10
-const MIN_TEMP: float = 0.45
 var wind_orientation: float
 var dir_noise: FastNoiseLite
 var difficulty: float
-var difficulty_multiplier: float = 0.8
+var difficulty_multiplier: float
+var min_temp: float
 var wind: Vector2
 var dryness: float
 var tick: int = 0
@@ -36,9 +36,11 @@ func get_forest_tiles() -> Array[Tile]:
 			forest_tiles.append(tile)
 	return forest_tiles
 
-func reset(diff) -> void:
+func reset(diff = 2, mint = 0.45, decay = 0.8) -> void:
 	tick = 0
 	difficulty = diff
+	min_temp = mint
+	difficulty_multiplier = decay
 	dir_noise = FastNoiseLite.new()
 	dir_noise.seed = randi_range(0, 1000)
 	dir_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -56,7 +58,7 @@ func update() -> void:
 		tileMap.update_if_player_win()
 
 func update_wind() -> void:
-	difficulty = maxf(difficulty * difficulty_multiplier, MIN_TEMP)
+	difficulty = maxf(difficulty * difficulty_multiplier, min_temp)
 	print(difficulty)
 	wind_orientation = (dir_noise.get_noise_1d(tick * DIR_SPEED) + 1) * PI
 	wind = Vector2(cos(wind_orientation), sin(wind_orientation))
