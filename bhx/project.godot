@@ -13,4 +13,7 @@ config_version=5
 config/name="BHX"
 config/tags=PackedStringArray("2d", "game", "pixel_art", "simulation")
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+
+[autoload]
+
+Gamemanager="*res://Scripts/gamemanager.gd"
