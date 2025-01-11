@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://wg7mhspgfhvf"]
+[gd_scene load_steps=11 format=3 uid="uid://wg7mhspgfhvf"]
 
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_1tach"]
 [ext_resource type="PackedScene" uid="uid://biip1gkj8dqqj" path="res://Scenes/button.tscn" id="1_h5drg"]
@@ -7,10 +7,11 @@
 [ext_resource type="Script" path="res://Scripts/event.gd" id="3_aolv1"]
 [ext_resource type="Resource" path="res://Resources/Destroy.tres" id="4_c5cbq"]
 [ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
-[ext_resource type="Resource" path="res://Resources/Plane.tres" id="5_4xni6"]
-[ext_resource type="Resource" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
+[ext_resource type="Resource" uid="uid://d00hgdw3sjn45" path="res://Resources/Plane.tres" id="5_4xni6"]
+[ext_resource type="Resource" uid="uid://cd6tbvg8khelk" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
+[ext_resource type="Texture2D" uid="uid://dkfef2l3pf67y" path="res://Graphix/arrow.png" id="10_ngwts"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" groups=["UI"]]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -96,5 +97,97 @@ anchor_bottom = 0.872
 offset_left = -0.0680084
 offset_right = 0.0159912
 texture = ExtResource("4_jcmds")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -161.0
+offset_top = 8.0
+offset_right = 161.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Date - 2020"
+
+[node name="1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 42.0
+offset_right = 1075.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "1"
+
+[node name="2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 145.0
+offset_right = 1075.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "2"
+
+[node name="3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 254.0
+offset_right = 1075.0
+offset_bottom = 286.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "3"
+
+[node name="Wind" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 74.0
+offset_right = 67.0
+offset_bottom = 114.0
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("10_ngwts")
+
+[node name="WindLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 123.0
+offset_right = 68.0
+offset_bottom = 138.0
+text = "Wind"
+
+[node name="Score" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = -41.0
+offset_right = 248.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(248, 41)
+
+[node name="Label" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "You left __ tiles of forest left
+This means you kept __% of the forest alive"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="money/Money/Money_timer" to="money" method="_on_money_timer_timeout"]

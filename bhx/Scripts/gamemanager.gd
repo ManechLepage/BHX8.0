@@ -12,8 +12,10 @@ var strength_noise: FastNoiseLite
 var wind: Vector2
 var dryness: float
 var tick: int = 0
+var did_win: bool = false
 
 const tick_multiplier: float = 0.95
+
 
 enum TileType {
 	FOREST,
@@ -47,11 +49,19 @@ func reset() -> void:
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = 0
 		tile.burn_state = BurnState.NONE
-	
+
 func update() -> void:
 	tick += 1
 	update_wind()
 	update_burn_state()
+	
+	if not did_win:
+		var tileMap = get_tree().get_first_node_in_group("TileMap")
+		if tileMap.is_forest_safe():
+			var percentage: float = tileMap.get_percentage_of_remaining_trees()
+			var left: int = tileMap.get_number_of_remaining_trees()
+			output_score(left, percentage)
+			did_win = true
 
 func update_wind() -> void:
 	wind_orientation = (dir_noise.get_noise_1d(tick * DIR_SPEED) + 1) * PI
@@ -99,3 +109,6 @@ func update_burn_state() -> void:
 			tile.heat = 0
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = tile.new_heat
+
+func output_score(left: int, percentage: float) -> void:
+	get_tree().get_first_node_in_group("UI").animate_score(left, percentage)

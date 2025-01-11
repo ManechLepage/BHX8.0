@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=13 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
@@ -8,8 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
 [ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
-[ext_resource type="PackedScene" uid="uid://gelrwf3fo1fj" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
-[ext_resource type="Script" path="res://Scripts/plane.gd" id="8_rsr61"]
+[ext_resource type="PackedScene" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -43,7 +42,6 @@ texture_region_size = Vector2i(32, 32)
 3:2/0/texture_origin = Vector2i(0, 3)
 4:0/0 = 0
 4:0/0/texture_origin = Vector2i(0, 3)
-4:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_se1w2"]
 texture = ExtResource("5_gteg3")
@@ -87,7 +85,6 @@ position = Vector2(0, 3)
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Timer" type="Timer" parent="Tilemap"]
-wait_time = 5.0
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -105,8 +102,5 @@ amount = 30
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("8_3idkp")]
-
-[node name="Plane" type="Node" parent="."]
-script = ExtResource("8_rsr61")
 
 [connection signal="timeout" from="Tilemap/Timer" to="Tilemap" method="_on_timer_timeout"]

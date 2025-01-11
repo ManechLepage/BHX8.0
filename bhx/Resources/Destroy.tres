@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_iy5gc")
-duration = 4.0
+duration = 1.0
 cost = 100
 sprite = ExtResource("2_n8831")
 name = "Destroy"

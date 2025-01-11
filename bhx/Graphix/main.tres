@@ -1,7 +1,19 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://rvsyfokxfiy1"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://rvsyfokxfiy1"]
 
 [ext_resource type="Texture2D" uid="uid://d4j8iendmsldh" path="res://Graphix/bars.png" id="1_bdrxt"]
+[ext_resource type="Texture2D" uid="uid://bfl27uls5rugt" path="res://Graphix/button_hover.png" id="1_gjai5"]
 [ext_resource type="FontFile" uid="uid://bymgy4fo1dtkq" path="res://Super Theory.ttf" id="1_ksa85"]
+[ext_resource type="Texture2D" uid="uid://bh68fa2x8tf2l" path="res://Graphix/button.png" id="1_x4rt3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qkult"]
+texture = ExtResource("1_gjai5")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pejat"]
+texture = ExtResource("1_x4rt3")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8rxya"]
 texture = ExtResource("1_bdrxt")
@@ -11,6 +23,8 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
 [resource]
+Button/styles/hover = SubResource("StyleBoxTexture_qkult")
+Button/styles/normal = SubResource("StyleBoxTexture_pejat")
 Label/colors/font_shadow_color = Color(0.951491, 0.340304, 0.387334, 0)
 Label/constants/outline_size = 10
 Label/constants/shadow_offset_y = 6

@@ -1,6 +1,6 @@
 class_name TileManager
 extends Node2D
-
+var wintermap = 0
 var map: Array[Tile]
 var rng: RandomNumberGenerator
 @export var params: GeneratorParams
@@ -12,9 +12,16 @@ var noise_plains: FastNoiseLite
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
 
+	
+
 var offset: Vector2i
 
 func _ready() -> void:
+	if randi() & 1:
+		if randi() & 1:
+			if randi() & 1:
+				if randi() & 1:
+					wintermap = 4
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
@@ -59,7 +66,8 @@ func generate() -> Array[Tile]:
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
 			tile.params = params
-			tile.burn_state = Gamemanager.BurnState.NONE
+			tile.burn_state = Gamemanager.BurnState.HIGH
+			tile.heat = 1
 			tile.position = position
 			generated_map.append(tile)
 	
@@ -111,10 +119,10 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		ground_cover.erase_cell(tile)
 	for tile in indicators.get_used_cells():
 		indicators.erase_cell(tile)
-	
+
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
-			atlas_coords = Vector2i(0, 1)
+			atlas_coords = Vector2i(wintermap, 1)
 		else:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
@@ -215,3 +223,24 @@ func delete_forest(position: Vector2i) -> void:
 	var tile: Tile = get_tile_from_position(map, position)
 	tile.type = Game.TileType.PLAINS
 	update()
+
+func get_number_of_remaining_trees() -> int:
+	var i: int = 0
+	for tile in map:
+		if tile.type == Gamemanager.TileType.FOREST and tile.burn_state == Gamemanager.BurnState.NONE:
+			i += 1
+	return i
+
+func get_percentage_of_remaining_trees() -> float:
+	var number_of_remaining_trees: int = get_number_of_remaining_trees()
+	var number_of_total_trees: int = Gamemanager.get_forest_tiles().size()
+	return float(number_of_remaining_trees / number_of_total_trees)
+
+func is_forest_safe() -> bool:
+	var safe: bool = true
+	for tile in map:
+		if tile.type == Gamemanager.TileType.FOREST:
+			if tile.burn_state != Gamemanager.BurnState.NONE and tile.burn_state != Gamemanager.BurnState.BURNT:
+				safe = false
+				break
+	return safe
