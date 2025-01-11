@@ -97,7 +97,7 @@ offset_left = -0.0680084
 offset_right = 0.0159912
 texture = ExtResource("4_jcmds")
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -109,5 +109,38 @@ offset_bottom = 61.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 60
 text = "Date - 2020"
+
+[node name="1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 42.0
+offset_right = 1075.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "1"
+
+[node name="2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 145.0
+offset_right = 1075.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "2"
+
+[node name="3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 254.0
+offset_right = 1075.0
+offset_bottom = 286.0
+theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "3"
 
 [connection signal="timeout" from="money/Money/Money_timer" to="money" method="_on_money_timer_timeout"]

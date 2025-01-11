@@ -49,13 +49,14 @@ func duplicate_jicleur() -> Vector2:
 	new_jicleur.global_position = get_global_mouse_position()
 	add_child(new_jicleur)
 	new_jicleur.emitting = true
-	await get_tree().create_timer(4.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	new_jicleur.emitting = false
 	return new_jicleur.global_position
 	
 func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
+		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
 		if coords.y % 2 == 0:
 			coords += Vector2i(0, 1)
