@@ -51,8 +51,8 @@ func load_level():
 	Gamemanager.reset(diff, min_diff, decay)
 	timer.wait_time = time
 	
-	diff *= 1.4
-	min_diff *= 1.3
+	diff += 1.5
+	min_diff += 0.2
 	decay = min(0.99, decay * 1.05)
 	time *= 1	
 	
