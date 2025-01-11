@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://rvsyfokxfiy1"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://rvsyfokxfiy1"]
 
 [ext_resource type="Texture2D" uid="uid://d4j8iendmsldh" path="res://Graphix/bars.png" id="1_bdrxt"]
+[ext_resource type="FontFile" uid="uid://bymgy4fo1dtkq" path="res://Super Theory.ttf" id="1_ksa85"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8rxya"]
 texture = ExtResource("1_bdrxt")
@@ -13,4 +14,5 @@ texture_margin_bottom = 16.0
 Label/colors/font_shadow_color = Color(0.951491, 0.340304, 0.387334, 0)
 Label/constants/outline_size = 10
 Label/constants/shadow_offset_y = 6
+Label/fonts/font = ExtResource("1_ksa85")
 Panel/styles/panel = SubResource("StyleBoxTexture_8rxya")
