@@ -1,7 +1,7 @@
 class_name Plane1
 extends Node
 
-@onready var tilemap: TileManager = $"../Game/Tilemap"
+@onready var tilemap: TileManager = $"../Tilemap"
 
 @export var plane: PackedScene
 
