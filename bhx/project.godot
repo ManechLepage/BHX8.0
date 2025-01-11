@@ -12,6 +12,7 @@ config_version=5
 
 config/name="BHX"
 config/tags=PackedStringArray("2d", "game", "pixel_art", "simulation")
+run/main_scene="res://Scenes/testing1.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
