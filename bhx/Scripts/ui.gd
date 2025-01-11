@@ -22,6 +22,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("1"):
 		destroy()
+		animate_score(10, 0.2)
 	elif Input.is_action_just_pressed("2"):
 		plane()
 	elif Input.is_action_just_pressed("3"):
@@ -47,8 +48,8 @@ func _process(delta: float) -> void:
 
 func animate_score(left: int, percentage: float) -> void:
 	score.scale = Vector2.ZERO
-	score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage) + "% of the forest alive"
+	score.get_child(0).text = "You left " + str(left) + " tiles of forest left\nThis means you kept " + str(percentage * 100) + "% of the forest alive"
 	var tween_scale = create_tween()
 	tween_scale.tween_property(score, "scale", Vector2(1, 1), 0.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	var tweeen_rotation = create_tween()
-	tweeen_rotation.tween_property(score, "rotation", 30 * PI, 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
+	tweeen_rotation.tween_property(score, "rotation", 4 * PI, 0.6).set_ease(Tween.EASE_IN_OUT)
