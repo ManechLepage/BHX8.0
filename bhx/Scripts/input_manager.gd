@@ -53,8 +53,8 @@ func _input(event: InputEvent) -> void:
 
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
 		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
-		selecting_type = SelectingType.NONE
 		await get_tree().create_timer(10.0).timeout
+		selecting_type = SelectingType.NONE
 
 		var clicked_position: Vector2 = get_clicked_tile().position
 		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
@@ -74,7 +74,6 @@ func update_hover() -> void:
 	for tile in tilemap.map:
 			if tilemap.indicators.get_cell_atlas_coords(tile.position + tilemap.offset) == Vector2i(0, 1):
 				var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
-				print(ground_atlas)
 				tilemap.indicators.set_cell(tile.position + tilemap.offset, 1, ground_atlas - Vector2i(1, 0))
 				break
 	if selecting_type != SelectingType.NONE:
@@ -92,8 +91,7 @@ func duplicate_jicleur() -> Vector2:
 
 func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
-	var t: Tile = tilemap.get_tile_from_position(tilemap.map, coords)
-	if t.type == Game.TileType.FOREST and t.heat < 0.1:
+	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
 		camera_2d.apply_shake(1.0, 1.0)
 		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
@@ -103,3 +101,5 @@ func destroy() -> void:
 			coords += Vector2i(0, 1)
 		tilemap.delete_forest(coords)
 		tilemap.update()
+	else:
+		tilemap.set_money(tilemap.get_money() + 100)
