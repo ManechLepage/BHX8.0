@@ -1,6 +1,6 @@
 class_name TileManager
 extends Node2D
-
+var wintermap = 0
 var map: Array[Tile]
 var rng: RandomNumberGenerator
 @export var params: GeneratorParams
@@ -112,9 +112,14 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 	for tile in indicators.get_used_cells():
 		indicators.erase_cell(tile)
 	
+	if randi() & 1:
+		if randi() & 1:
+			if randi() & 1:
+				if randi() & 1:
+					wintermap = 4
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
-			atlas_coords = Vector2i(0, 1)
+			atlas_coords = Vector2i(wintermap, 1)
 		else:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)

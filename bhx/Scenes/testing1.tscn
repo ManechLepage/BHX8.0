@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://cp1ta8sndkuj2" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
 [ext_resource type="Texture2D" uid="uid://boo2v5ap5unos" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
 [ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
-[ext_resource type="PackedScene" uid="uid://bxpqyjy48ynbn" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
+[ext_resource type="PackedScene" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -42,6 +42,7 @@ texture_region_size = Vector2i(32, 32)
 3:2/0/texture_origin = Vector2i(0, 3)
 4:0/0 = 0
 4:0/0/texture_origin = Vector2i(0, 3)
+4:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_se1w2"]
 texture = ExtResource("5_gteg3")
