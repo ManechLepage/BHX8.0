@@ -5,7 +5,6 @@ extends Node
 const DIR_SPEED: float = 1
 const STRENGTH_SPEED: float = 1 
 const BURN_THRESHOLD: float = 4
-var tiles: Array[Tile]
 var wind_orientation: float
 var dir_noise: FastNoiseLite
 var wind_strength: float
@@ -32,7 +31,7 @@ enum BurnState {
 
 func get_forest_tiles() -> Array[Tile]:
 	var forest_tiles: Array[Tile]
-	for tile in tiles:
+	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		if tile.type == TileType.FOREST:
 			forest_tiles.append(tile)
 	return forest_tiles
@@ -45,7 +44,7 @@ func reset() -> void:
 	strength_noise.seed = randi_range(0, 1000)
 	dir_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	strength_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	for tile in tiles:
+	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = 0
 		tile.BurnState = BurnState.NONE
 	
