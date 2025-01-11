@@ -1,21 +1,22 @@
-[gd_scene load_steps=21 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=22 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
-[ext_resource type="Texture2D" uid="uid://d1cx3km72sb1c" path="res://Resources/Grad2.tres" id="3_2dgcj"]
+[ext_resource type="Resource" uid="uid://cp1ta8sndkuj2" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Texture2D" uid="uid://boo2v5ap5unos" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
 [ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
 [ext_resource type="PackedScene" uid="uid://gelrwf3fo1fj" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
 [ext_resource type="Script" path="res://Scripts/plane.gd" id="8_rsr61"]
-[ext_resource type="PackedScene" uid="uid://vq6wprpaeka" path="res://Scenes/plane.tscn" id="11_ikwvs"]
+[ext_resource type="PackedScene" uid="uid://dhlvbb137uhcy" path="res://Scenes/plane.tscn" id="11_ikwvs"]
 [ext_resource type="Texture2D" uid="uid://bmg6q0xuvpi7e" path="res://Graphix/clock1.png" id="12_xifmd"]
 [ext_resource type="Texture2D" uid="uid://cdf5cb40s1nu8" path="res://Graphix/clock2.png" id="13_g66m6"]
 [ext_resource type="Texture2D" uid="uid://c1p4l6hdo5qk3" path="res://Graphix/clock3.png" id="14_gnq8x"]
 [ext_resource type="Texture2D" uid="uid://cn5umdfms0dnj" path="res://Graphix/clock4.png" id="15_nq8i4"]
 [ext_resource type="Texture2D" uid="uid://csn8b40jxcrxe" path="res://Graphix/clock5.png" id="16_ojtjj"]
+[ext_resource type="PackedScene" uid="uid://cnr2obmxh0aoa" path="res://Scenes/menu.tscn" id="17_yep88"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -97,51 +98,55 @@ animations = [{
 texture_filter = 1
 position = Vector2(-12, -10)
 
-[node name="Tilemap" type="Node2D" parent="." groups=["TileMap"]]
+[node name="Plane" type="Node" parent="."]
+script = ExtResource("8_rsr61")
+plane = ExtResource("11_ikwvs")
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="Tilemap" type="Node2D" parent="Game" groups=["TileMap"]]
 script = ExtResource("1_eqtw3")
 params = ExtResource("2_x7ngu")
 radial_gradient = ExtResource("3_2dgcj")
 
-[node name="Ground" type="TileMapLayer" parent="Tilemap"]
+[node name="Ground" type="TileMapLayer" parent="Game/Tilemap"]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD///3/AAAAAAEAAAD///7/AAAAAAEAAAD+//3/AAAAAAEAAAD+////AAAAAAEAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAIAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAAAAAAAAAEAAAAAAP//AAAAAAEAAAAAAP7/AAAAAAEAAAD/////AAAAAAEAAAAAAAAAAAAAAAEAAAD//wIAAAAAAAEAAAAAAP3/AAAAAAEAAAABAP7/AAAAAAEAAAD+/wEAAAAAAAEAAAD+/wIAAAAAAAEAAAD+/wMAAAAAAAEAAAD//wQAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAQAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAIAAAAAAAEAAAABAAEAAAAAAAEAAAABAP//AAAAAAEAAAABAP3/AAAAAAEAAAABAPz/AAAAAAEAAAAAAPv/AAAAAAEAAAAAAPz/AAAAAAEAAAD///v/AAAAAAEAAAD///z/AAAAAAEAAAD+//7/AAAAAAEAAAD+/wAAAAAAAAEAAAD9/wEAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
-[node name="GroundCover" type="TileMapLayer" parent="Tilemap"]
+[node name="GroundCover" type="TileMapLayer" parent="Game/Tilemap"]
 tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAACAAAAAAD+/wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAP//AAAAAAAAAAABAP7/AAAAAAAAAAAAAP7/AAABAAAAAAD/////AAADAAAAAAD///3/AAABAAAAAAAAAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
-[node name="Indicatiors" type="TileMapLayer" parent="Tilemap"]
+[node name="Indicatiors" type="TileMapLayer" parent="Game/Tilemap"]
 self_modulate = Color(1, 1, 1, 0.54902)
 position = Vector2(0, 3)
 tile_set = SubResource("TileSet_wjvrg")
 
-[node name="Timer" type="Timer" parent="Tilemap"]
+[node name="Timer" type="Timer" parent="Game/Tilemap"]
 wait_time = 5.0
 autostart = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Game"]
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("5_3eim0")
 
-[node name="InputManager" type="Node2D" parent="." groups=["InputManager"]]
+[node name="InputManager" type="Node2D" parent="Game" groups=["InputManager"]]
 script = ExtResource("7_rwkuo")
 
-[node name="JicleurDeTerre" parent="." instance=ExtResource("8_en8jn")]
+[node name="JicleurDeTerre" parent="Game" instance=ExtResource("8_en8jn")]
 scale = Vector2(0.3, 0.3)
 emitting = false
 amount = 30
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game"]
+position = Vector2(-7438, -3193)
+sprite_frames = SubResource("SpriteFrames_wg4tm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("8_3idkp")]
 
-[node name="Plane" type="Node" parent="."]
-script = ExtResource("8_rsr61")
-plane = ExtResource("11_ikwvs")
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("17_yep88")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-7438, -3193)
-sprite_frames = SubResource("SpriteFrames_wg4tm")
-
-[connection signal="timeout" from="Tilemap/Timer" to="Tilemap" method="_on_timer_timeout"]
+[connection signal="timeout" from="Game/Tilemap/Timer" to="Game/Tilemap" method="_on_timer_timeout"]
