@@ -48,6 +48,10 @@ func generate() -> Array[Tile]:
 	
 	return generated_map
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("Reset"):
+		_ready()
+
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var used_position: Vector2 = Vector2(position.x, position.y / 2)
 	var value1: float = noise.get_noise_2dv(used_position / params.scale * 5)

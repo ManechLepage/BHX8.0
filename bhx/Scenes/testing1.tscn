@@ -72,7 +72,7 @@ tile_map_data = PackedByteArray("AAD///7/AAABAAAAAAD+////AAAAAAAAAAD//wAAAAAAAAA
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Indicatiors" type="TileMapLayer" parent="Tilemap"]
-modulate = Color(1, 1, 1, 0.301961)
+visible = false
 tile_map_data = PackedByteArray("AAAAAP7/AQAAAAAAAAD///3/AQAAAAAAAAD///7/AQAAAAAAAAA=")
 tile_set = SubResource("TileSet_wjvrg")
 
