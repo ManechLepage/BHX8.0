@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://by6d4ucxschwc"]
+[gd_scene load_steps=3 format=3 uid="uid://by6d4ucxschwc"]
 
 [ext_resource type="Script" path="res://Scripts/gamemanager.gd" id="1_hs4co"]
+[ext_resource type="Script" path="res://Scripts/tilemap_loader.gd" id="2_adqhu"]
 
 [node name="Gamemanager" type="Node"]
 script = ExtResource("1_hs4co")
+
+[node name="TilemapLoader" type="Node" parent="."]
+script = ExtResource("2_adqhu")
