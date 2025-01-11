@@ -227,7 +227,7 @@ func delete_forest(position: Vector2i) -> void:
 func get_number_of_remaining_trees() -> int:
 	var i: int = 0
 	for tile in map:
-		if tile.burn_state == Gamemanager.BurnState.NONE:
+		if tile.type == Gamemanager.TileType.FOREST and tile.burn_state == Gamemanager.BurnState.NONE:
 			i += 1
 	return i
 
