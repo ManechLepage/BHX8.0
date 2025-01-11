@@ -2,6 +2,7 @@ class_name Plane1
 extends Node
 
 func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
+	Sound.plane()
 	var tiles: Array[Tile] = []
 	var tileManager: TileManager = get_tree().get_first_node_in_group("TileMap")
 
@@ -28,11 +29,13 @@ func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 	
 	for tile in tiles:
 		if not only_center:
+			# tile.type = Gamemanager.TileType.PLAINS
 			tile.heat = 0
 			tile.burn_state = Gamemanager.BurnState.NONE
 		else:
-			tile.heat *= 0.75
-			tile.burn_state = Gamemanager.BurnState.LOW
+			# tile.type = Gamemanager.TileType.PLAINS
+			tile.heat *= 0
+			tile.burn_state = Gamemanager.BurnState.NONE
 	
 	if not only_center:
 		var center_side_1: Vector2 = center + Vector2(1, 0)
