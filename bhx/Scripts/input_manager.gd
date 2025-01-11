@@ -1,6 +1,6 @@
 class_name InputManager
 extends Node2D
-
+@onready var clock: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var tilemap: TileManager = $"../Tilemap"
 @onready var plane_script: Plane1 =$"../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
@@ -14,7 +14,13 @@ enum SelectingType {
 }
 
 var selecting_type: SelectingType
-
+func duplicate_clock(position):
+	var new_clock = clock.duplicate()
+	new_clock.global_position = position
+	add_child(new_clock)
+	new_clock.play()
+	
+	
 func _ready() -> void:
 	selecting_type = SelectingType.NONE
 
@@ -29,6 +35,7 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
+		duplicate_clock(get_clicked_tile().position)
 		await get_tree().create_timer(10.0).timeout
 		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE

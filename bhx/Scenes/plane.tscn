@@ -1,8 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhlvbb137uhcy"]
+[gd_scene load_steps=10 format=3 uid="uid://vq6wprpaeka"]
 
 [ext_resource type="PackedScene" uid="uid://cf5soxq4dqwk0" path="res://Scenes/jicleur.tscn" id="1_h1hfn"]
 [ext_resource type="Script" path="res://Scripts/plane2.gd" id="1_yf468"]
 [ext_resource type="Texture2D" uid="uid://bxp6dbyuve835" path="res://Graphix/plane.png" id="2_jpiju"]
+[ext_resource type="Texture2D" uid="uid://bmg6q0xuvpi7e" path="res://Graphix/clock1.png" id="4_ls8mr"]
+[ext_resource type="Texture2D" uid="uid://cdf5cb40s1nu8" path="res://Graphix/clock2.png" id="5_bghb3"]
+[ext_resource type="Texture2D" uid="uid://c1p4l6hdo5qk3" path="res://Graphix/clock3.png" id="6_8nlck"]
+[ext_resource type="Texture2D" uid="uid://cn5umdfms0dnj" path="res://Graphix/clock4.png" id="7_vscc4"]
+[ext_resource type="Texture2D" uid="uid://csn8b40jxcrxe" path="res://Graphix/clock5.png" id="8_ft683"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_okn5c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ls8mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bghb3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8nlck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vscc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ft683")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.4
+}]
 
 [node name="Plane" type="Node2D"]
 texture_filter = 1
@@ -13,3 +41,6 @@ script = ExtResource("1_yf468")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(-2.5, 2.5)
 texture = ExtResource("2_jpiju")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_okn5c")
