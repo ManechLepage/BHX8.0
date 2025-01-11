@@ -23,7 +23,6 @@ func _ready() -> void:
 			if randi() & 1:
 				if randi() & 1:
 					wintermap = 4
-	
 	diff = 1
 	load_level()
 
@@ -33,10 +32,9 @@ func try_load_next_level():
 		rename_year_title("Date - " + str(year))
 		hide_win_screen()
 		load_level()
-
+		Sound.storm()
 func load_level():
 	Gamemanager.did_win = false
-	
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	

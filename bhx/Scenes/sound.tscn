@@ -27,7 +27,7 @@ volume_db = -10.0
 
 [node name="thunder" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_dxsch")
-volume_db = -10.0
+volume_db = -19.369
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_pauri")

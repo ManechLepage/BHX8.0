@@ -25,3 +25,4 @@ func _on_button_pressed() -> void:
 	background.visible = false
 	game.visible = true
 	control.visible = true
+	Sound.storm()

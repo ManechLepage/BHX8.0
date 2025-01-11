@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
-[ext_resource type="Resource" uid="uid://cp1ta8sndkuj2" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
+[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
 [ext_resource type="Texture2D" uid="uid://d1cx3km72sb1c" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
@@ -16,8 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://c1p4l6hdo5qk3" path="res://Graphix/clock3.png" id="14_gnq8x"]
 [ext_resource type="Texture2D" uid="uid://cn5umdfms0dnj" path="res://Graphix/clock4.png" id="15_nq8i4"]
 [ext_resource type="Texture2D" uid="uid://csn8b40jxcrxe" path="res://Graphix/clock5.png" id="16_ojtjj"]
-[ext_resource type="PackedScene" uid="uid://c1p0xeutrji8n" path="res://Scenes/menu.tscn" id="17_ucfh6"]
-[ext_resource type="PackedScene" uid="uid://dsjoxy8pwp13d" path="res://Scenes/settings.tscn" id="18_fndpc"]
+[ext_resource type="PackedScene" uid="uid://c10sr21runtq0" path="res://Scenes/menu.tscn" id="17_ucfh6"]
+[ext_resource type="PackedScene" path="res://Scenes/settings.tscn" id="18_fndpc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
