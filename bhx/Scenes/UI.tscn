@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://Scenes/money.gd" id="2_aeoyg"]
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="2_xjvmb"]
 [ext_resource type="Script" path="res://Scripts/event.gd" id="3_aolv1"]
-[ext_resource type="Resource" path="res://Resources/Destroy.tres" id="4_c5cbq"]
+[ext_resource type="Resource" uid="uid://lxo0l7kcxeip" path="res://Resources/Destroy.tres" id="4_c5cbq"]
 [ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
-[ext_resource type="Resource" uid="uid://d00hgdw3sjn45" path="res://Resources/Plane.tres" id="5_4xni6"]
-[ext_resource type="Resource" uid="uid://cd6tbvg8khelk" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
+[ext_resource type="Resource" uid="uid://d3ls3qgxmwjdx" path="res://Resources/Plane.tres" id="5_4xni6"]
+[ext_resource type="Resource" uid="uid://d3kcipeppdxor" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
 [ext_resource type="Texture2D" uid="uid://dkfef2l3pf67y" path="res://Graphix/arrow.png" id="10_ngwts"]
 
 [node name="Control" type="Control" groups=["UI"]]

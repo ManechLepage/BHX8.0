@@ -25,7 +25,7 @@ func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
-	Gamemanager.reset()
+	Gamemanager.reset(2)
 	
 	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
 	get_random_tile(forest_tiles).heat = 1

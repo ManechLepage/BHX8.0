@@ -4,17 +4,15 @@ extends Node
 const DIR_SPEED: float = 4
 const STRENGTH_SPEED: float = 8
 const BURN_THRESHOLD: float = 10
-const TEMPERATURE: float = 0.45
+const MIN_TEMP: float = 0.45
 var wind_orientation: float
 var dir_noise: FastNoiseLite
-var wind_strength: float
-var strength_noise: FastNoiseLite
+var difficulty: float
+var difficulty_multiplier: float = 0.8
 var wind: Vector2
 var dryness: float
 var tick: int = 0
 var did_win: bool = false
-
-const tick_multiplier: float = 0.95
 
 
 enum TileType {
@@ -38,14 +36,12 @@ func get_forest_tiles() -> Array[Tile]:
 			forest_tiles.append(tile)
 	return forest_tiles
 
-func reset() -> void:
+func reset(diff) -> void:
 	tick = 0
+	difficulty = diff
 	dir_noise = FastNoiseLite.new()
-	strength_noise = FastNoiseLite.new()
 	dir_noise.seed = randi_range(0, 1000)
-	strength_noise.seed = randi_range(0, 1000)
 	dir_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	strength_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = 0
 		tile.burn_state = BurnState.NONE
@@ -64,9 +60,9 @@ func update() -> void:
 			did_win = true
 
 func update_wind() -> void:
+	difficulty = maxf(difficulty * difficulty_multiplier, MIN_TEMP)
+	print(difficulty)
 	wind_orientation = (dir_noise.get_noise_1d(tick * DIR_SPEED) + 1) * PI
-	wind_strength = ((strength_noise.get_noise_1d(tick * STRENGTH_SPEED) + 1) / 2 + 1)
-	#print(wind_strength)
 	wind = Vector2(cos(wind_orientation), sin(wind_orientation))
 
 func update_burn_state() -> void:
@@ -85,7 +81,7 @@ func update_burn_state() -> void:
 				var dir: Vector2 = Vector2(neighbour.position - tile.position).normalized()
 				#rescale diagonals
 				target_heat += ((wind.dot(dir) + 1) / 2 * neighbour.heat)
-		target_heat *= TEMPERATURE
+		target_heat *= difficulty
 		var normal_sample: float = 0
 		for i in range(12):
 			normal_sample += randf()
@@ -93,8 +89,7 @@ func update_burn_state() -> void:
 		#print(normal_sample)
 		#print(target_heat, " ", tile.heat)
 		tile.new_heat = min(1, max(tile.heat / 2, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
-		#if tile.heat != 0:
-		#	print(tile.heat)
+
 		if tile.heat < 0.2:
 			tile.burn_state = BurnState.NONE
 		elif tile.heat < 0.4:
