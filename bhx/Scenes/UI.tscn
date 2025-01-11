@@ -97,4 +97,17 @@ offset_left = -0.0680084
 offset_right = 0.0159912
 texture = ExtResource("4_jcmds")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -161.0
+offset_top = 8.0
+offset_right = 161.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Date - 2020"
+
 [connection signal="timeout" from="money/Money/Money_timer" to="money" method="_on_money_timer_timeout"]
