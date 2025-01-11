@@ -220,8 +220,9 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 
 
 func _on_timer_timeout() -> void:
-	Gamemanager.update()
-	update()
+	if not Gamemanager.did_win:
+		Gamemanager.update()
+		update()
 
 func delete_forest(position: Vector2i) -> void:
 	var tile: Tile = get_tile_from_position(map, position)
