@@ -20,15 +20,19 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	update_hover()
+	var did_do_something: bool = false
 	if Input.is_action_just_pressed("Test1"):
 		selecting_type = SelectingType.DESTROY1
+		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.DESTROY1:
 		destroy()
 		selecting_type = SelectingType.NONE
+		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
 		await get_tree().create_timer(10.0).timeout
 		plane_script.plane_funct11ion(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE
+		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
 		await get_tree().create_timer(10.0).timeout
 		var clicked_position: Vector2 = get_clicked_tile().position
@@ -36,6 +40,10 @@ func _input(event: InputEvent) -> void:
 		for center in centers:
 			plane_script.plane_function(tilemap.map, center)
 		selecting_type = SelectingType.NONE
+		did_do_something = true
+	
+	if did_do_something:
+		get_tree().get_first_node_in_group("TileMap").update_if_player_win()
 
 func get_clicked_tile() -> Tile:
 	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
