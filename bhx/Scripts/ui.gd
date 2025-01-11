@@ -17,6 +17,14 @@ func _ready() -> void:
 		elif i == 2:
 			actions_list.get_child(i).pressed.connect(plane_ultimate)
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("1"):
+		destroy()
+	elif Input.is_action_just_pressed("2"):
+		plane()
+	elif Input.is_action_just_pressed("3"):
+		plane_ultimate()
+
 func destroy() -> void:
 	if money.money - events[0].cost >= 0:
 		money.money -= events[0].cost
