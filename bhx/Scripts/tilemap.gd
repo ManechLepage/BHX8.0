@@ -15,10 +15,12 @@ var noise_plains: FastNoiseLite
 
 var start_number_of_trees: int
 var dryness_level: int = 0
+
 var diff: float
 var min_diff: float
 var decay: float
 var time: float
+
 var offset: Vector2i
 
 func _ready() -> void:
@@ -38,7 +40,7 @@ func try_load_next_level():
 	if Gamemanager.did_win:
 		var year: int = 2020 + (diff - 1) * 10
 		rename_year_title("Date - " + str(year))
-		set_money(1100)
+		set_money(0)
 		hide_win_screen()
 		load_level()
 
@@ -51,9 +53,9 @@ func load_level():
 	Gamemanager.reset(diff, min_diff, decay)
 	timer.wait_time = time
 	
-	diff += 1.5
-	min_diff += 0.2
-	decay = min(0.99, decay * 1.05)
+	diff += 1
+	min_diff += 0.1
+	decay = min(0.99, decay * 1.01)
 	time *= 1	
 	
 	start_number_of_trees = 0
@@ -224,9 +226,9 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	return get_tile_from_position(generated_map, tile_position)
 
 func get_river_min() -> int:
-	return 10 / (diff / 5) + 1
+	return 7 / diff + 1
 func get_river_max() -> int:
-	return 14 / (diff / 5) + 1
+	return 11 / diff + 1
 
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 	var number_of_rivers: int = rng.randi_range(get_river_min(), get_river_max())

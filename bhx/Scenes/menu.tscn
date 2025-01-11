@@ -27,7 +27,7 @@ offset_bottom = 157.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 96
-text = "JICLEUR DE FEU"
+text = "Wildfire"
 horizontal_alignment = 1
 vertical_alignment = 1
 
