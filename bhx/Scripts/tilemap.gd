@@ -116,39 +116,62 @@ func get_all_water_tiles(generated_map: Array[Tile]) -> Array[Tile]:
 		all_waters.append(tile)
 	return all_waters
 
+func get_all_close_to_land(generated_map: Array[Tile], water_tiles: Array[Tile]) -> Array[Tile]:
+	var all_correct_tiles: Array[Tile] = []
+	for tile in water_tiles:
+		var all_neighbours: Array[Vector2i] = ground.get_surrounding_cells(tile.position)
+		for neighbour in all_neighbours:
+			if not (neighbour.x < 0 or neighbour.x >= params.dimensions.x or neighbour.y < 0 or neighbour.y >= params.dimensions.y):
+				var neighbour_tile: Tile = get_tile_from_position(generated_map, neighbour)
+				if neighbour_tile.type != Gamemanager.TileType.WATER:
+					all_correct_tiles.append(tile)
+					break
+	return all_correct_tiles
+
 func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: float) -> Tile:
 	# Angle values: [-1; 1]
-	angle *= 180 / 90  # range [-2, 2]
+	angle *= 2  # range [-2, 2]
 	angle = round(angle)
-	print(angle)
 	var all_neighbours: Array[Vector2i] = ground.get_surrounding_cells(tile.position)
 	var index: int = angle + 2
 	
-	if index == -2:
-		index = 2
+	if index == 4:
+		index = 0
 	
 	var tile_position: Vector2i = all_neighbours[index]
-	return get_tile_from_position(generated_map, tile_position)
+	if tile_position.x < 0 or tile_position.x >= params.dimensions.x or tile_position.y < 0 or tile_position.y >= params.dimensions.y:
+		tile_position = tile.position
 	
+	return get_tile_from_position(generated_map, tile_position)
 
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
-	var number_of_rivers: int = randi_range(5, 20)
+	var number_of_rivers: int = randi_range(8, 12)
 	var all_water_tiles = get_all_water_tiles(generated_map)
+	all_water_tiles = get_all_close_to_land(generated_map, all_water_tiles)
 	
 	for i in range(number_of_rivers):
 		var start_water: Tile = get_random_water(all_water_tiles)
-		var start_direction: float
 		
 		var direction_noise: FastNoiseLite = FastNoiseLite.new()
 		direction_noise.seed = params.seed + 10 * i
 		direction_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 		
+		var direction_noise2: FastNoiseLite = FastNoiseLite.new()
+		direction_noise2.seed = params.seed + 11 * i
+		direction_noise2.noise_type = FastNoiseLite.TYPE_PERLIN
+		
+		var direction1: float
+		var direction2: float
 		var direction: float
 		var step: int = 0
 		var number_of_land_tiles: int = 0
 		while true:
-			direction = direction_noise.get_noise_1d(step) * 3
-			var neighbour_in_direction: Tile = get_neighbour_from_angle(generated_map, start_water, start_direction)
+			direction1 = direction_noise.get_noise_1d(step * 60) * 2.5
+			direction2 = direction_noise2.get_noise_1d(step * 5) * 2.5	
+			
+			direction = direction1 * 0.5 + direction2 * 0.5
+			
+			var neighbour_in_direction: Tile = get_neighbour_from_angle(generated_map, start_water, direction)
 			step += 1
 			
 			start_water = neighbour_in_direction
@@ -156,9 +179,9 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 			if neighbour_in_direction.type != Gamemanager.TileType.WATER:
 				number_of_land_tiles += 1
 			
-			neighbour_in_direction.type = Gamemanager.TileType.WATER
-			
-			if step > 200 or neighbour_in_direction.type == Gamemanager.TileType.WATER and number_of_land_tiles > 5:
+			if step > 1000 or (neighbour_in_direction.type == Gamemanager.TileType.WATER) and number_of_land_tiles > 5:
 				break
+			
+			neighbour_in_direction.type = Gamemanager.TileType.WATER
 	
 	return generated_map
