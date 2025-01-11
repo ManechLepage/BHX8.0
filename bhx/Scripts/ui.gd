@@ -2,6 +2,7 @@ extends Control
 
 @onready var actions_list: VBoxContainer = $Actions_list
 @onready var money: Panel = $money
+@onready var wind: TextureRect = $Wind
 
 @export var events: Array[Event]
 var input_manager: InputManager
@@ -39,3 +40,6 @@ func plane_ultimate() -> void:
 	if money.money - events[2].cost >= 0:
 		money.money -= events[2].cost
 		input_manager.selecting_type = input_manager.SelectingType.PLANE2
+
+func _process(delta: float) -> void:
+	wind.rotation = Gamemanager.wind_orientation

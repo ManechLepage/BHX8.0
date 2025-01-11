@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://wg7mhspgfhvf"]
+[gd_scene load_steps=11 format=3 uid="uid://wg7mhspgfhvf"]
 
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_1tach"]
 [ext_resource type="PackedScene" uid="uid://biip1gkj8dqqj" path="res://Scenes/button.tscn" id="1_h5drg"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
 [ext_resource type="Resource" uid="uid://d00hgdw3sjn45" path="res://Resources/Plane.tres" id="5_4xni6"]
 [ext_resource type="Resource" uid="uid://cd6tbvg8khelk" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
+[ext_resource type="Texture2D" uid="uid://dkfef2l3pf67y" path="res://Graphix/arrow.png" id="10_ngwts"]
 
 [node name="Control" type="Control"]
 texture_filter = 1
@@ -142,5 +143,22 @@ theme_override_colors/font_color = Color(0.81502, 3.58574e-06, 7.70092e-07, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 text = "3"
+
+[node name="Wind" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 74.0
+offset_right = 67.0
+offset_bottom = 114.0
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("10_ngwts")
+
+[node name="WindLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 123.0
+offset_right = 68.0
+offset_bottom = 138.0
+text = "Wind"
 
 [connection signal="timeout" from="money/Money/Money_timer" to="money" method="_on_money_timer_timeout"]
