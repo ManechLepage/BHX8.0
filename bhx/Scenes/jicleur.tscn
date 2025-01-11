@@ -8,6 +8,7 @@ colors = PackedColorArray(0.580566, 0.718013, 1, 1, 0.0395615, 0.0821653, 0.6174
 [node name="Node2D" type="CPUParticles2D"]
 texture_filter = 1
 amount = 200
+lifetime = 0.4
 texture = ExtResource("1_fgi1p")
 emission_shape = 3
 emission_rect_extents = Vector2(20, 1)
