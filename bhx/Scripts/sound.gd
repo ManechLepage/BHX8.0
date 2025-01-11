@@ -4,7 +4,7 @@ extends Node
 @onready var jicleur: AudioStreamPlayer = $Jicleur
 @onready var planifere: AudioStreamPlayer = $planifere
 @onready var music: AudioStreamPlayer = $music
-
+@onready var thunder: AudioStreamPlayer = $thunder
 func jicle() -> void:
 	jicleur.play()
 
@@ -17,3 +17,6 @@ func dinero() -> void:
 
 func _on_music_finished() -> void:
 	music.play()
+func storm() -> void:
+	thunder.play()
+	
