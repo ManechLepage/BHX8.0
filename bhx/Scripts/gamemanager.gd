@@ -48,11 +48,11 @@ func reset(diff = 2, mint = 0.45, decay = 0.8) -> void:
 		tile.burn_state = BurnState.NONE
 
 func update() -> void:
-	if not did_win:
-		tick += 1
-		update_wind()
-		update_burn_state()
+	tick += 1
+	update_wind()
+	update_burn_state()
 	
+	if not did_win:
 		var tileMap = get_tree().get_first_node_in_group("TileMap")
 		tileMap.update_if_player_win()
 
