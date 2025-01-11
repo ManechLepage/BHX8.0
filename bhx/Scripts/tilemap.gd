@@ -2,6 +2,7 @@ class_name TileManager
 extends Node2D
 
 var map: Array[Tile]
+var rng: RandomNumberGenerator
 @export var params: GeneratorParams
 @export var radial_gradient: GradientTexture2D
 var noise: FastNoiseLite
@@ -15,6 +16,26 @@ var offset: Vector2i
 
 func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
+	map = generate()
+	
+	Gamemanager.reset()
+	
+	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
+	get_random_tile(forest_tiles).heat = 1
+	
+	offset = params.dimensions / -2
+	
+	Gamemanager.update()
+	update()
+
+func update() -> void:
+	update_tile_map(map)
+	load_water()
+
+func generate() -> Array[Tile]:
+	rng = RandomNumberGenerator.new()
+	rng.seed = params.seed
+	
 	noise = FastNoiseLite.new()
 	noise.seed = params.seed
 	noise.noise_type = params.noise_type
@@ -29,23 +50,7 @@ func _ready() -> void:
 	
 	radial_gradient.height = params.dimensions.y
 	radial_gradient.width = params.dimensions.x
-	map = generate()
 	
-	Gamemanager.reset()
-	
-	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
-	forest_tiles.pick_random().heat = 1
-	
-	offset = params.dimensions / -2
-	
-	Gamemanager.update()
-	update()
-
-func update() -> void:
-	update_tile_map(map)
-	load_water()
-
-func generate() -> Array[Tile]:
 	var generated_map: Array[Tile] = []
 	
 	for y in range(params.dimensions[1]):
@@ -65,6 +70,10 @@ func generate() -> Array[Tile]:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Reset"):
 		_ready()
+
+func get_random_tile(array: Array[Tile]) -> Tile:
+	var index: int = rng.randi_range(0, array.size() - 1)
+	return array[index]
 
 func load_water() -> void:
 	for x in range(256):
@@ -119,7 +128,7 @@ func get_tile_from_position(generated_map: Array[Tile], position: Vector2i) -> T
 	return generated_map[index]
 
 func get_random_water(water_tiles: Array[Tile]) -> Tile:
-	return water_tiles.pick_random()
+	return get_random_tile(water_tiles)
 
 func get_all_water_tiles(generated_map: Array[Tile]) -> Array[Tile]:
 	var all_waters: Array[Tile] = []
@@ -156,7 +165,7 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	return get_tile_from_position(generated_map, tile_position)
 
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
-	var number_of_rivers: int = randi_range(8, 12)
+	var number_of_rivers: int = rng.randi_range(8, 12)
 	var all_water_tiles = get_all_water_tiles(generated_map)
 	all_water_tiles = get_all_close_to_land(generated_map, all_water_tiles)
 	
@@ -178,7 +187,7 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 		var number_of_land_tiles: int = 0
 		while true:
 			direction1 = direction_noise.get_noise_1d(step * 60) * 2.5
-			direction2 = direction_noise2.get_noise_1d(step * 5) * 2.5	
+			direction2 = direction_noise2.get_noise_1d(step * 20) * 2.5	
 			
 			direction = direction1 * 0.5 + direction2 * 0.5
 			
