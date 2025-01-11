@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://d00hgdw3sjn45"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://4x53mei811rc"]
 
 [ext_resource type="Script" path="res://Scripts/event.gd" id="1_pxbs5"]
 [ext_resource type="Texture2D" uid="uid://b0qlyd604qbdb" path="res://Graphix/plane_item.png" id="2_5ryse"]
