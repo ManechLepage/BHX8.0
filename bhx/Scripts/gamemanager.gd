@@ -1,10 +1,10 @@
 class_name Game
 extends Node
 
-@export var params: GeneratorParams
-const DIR_SPEED: float = 1
-const STRENGTH_SPEED: float = 1 
-const BURN_THRESHOLD: float = 4
+const DIR_SPEED: float = 4
+const STRENGTH_SPEED: float = 8
+const BURN_THRESHOLD: float = 10
+const TEMPERATURE: float = 0.45
 var wind_orientation: float
 var dir_noise: FastNoiseLite
 var wind_strength: float
@@ -55,42 +55,49 @@ func update() -> void:
 
 func update_wind() -> void:
 	wind_orientation = (dir_noise.get_noise_1d(tick * DIR_SPEED) + 1) * PI
-	wind_strength = (strength_noise.get_noise_1d(tick * STRENGTH_SPEED) + 1) / 2
-	wind = Vector2(wind_strength * cos(wind_orientation), wind_strength * sin(wind_orientation))
+	wind_strength = ((strength_noise.get_noise_1d(tick * STRENGTH_SPEED) + 1) / 2 + 1)
+	#print(wind_strength)
+	wind = Vector2(cos(wind_orientation), sin(wind_orientation))
 
 func update_burn_state() -> void:
 	#the probability for a tile to increase its burn state depends on the following factors:
 	# - the current burn state
 	# - the burn states of the adjacent tiles, weighed by the wind direction
 	# - the wind strength
-	for forest_tile in get_forest_tiles():
-		if forest_tile.burn_state == BurnState.BURNT:
+	for tile in get_tree().get_first_node_in_group("TileMap").map:
+		if tile.type != TileType.FOREST and tile.burn_state != BurnState.BURNT:
 			continue
 		#find the total heat
-		var total_heat: float = 0
-		for pos in forest_tile.get_neighbours():
-			var tile: Tile = get_tree().get_first_node_in_group("TileMap").map[pos.y * get_tree().get_first_node_in_group("TileMap").params.dimensions.x + pos.x]
-			if (tile.type == TileType.FOREST):
-				var dir: Vector2 = pos - forest_tile.position
+		var target_heat: float = 0
+		for idx in tile.get_neighbours():
+			var neighbour: Tile = get_tree().get_first_node_in_group("TileMap").map[idx]
+			if (neighbour.type == TileType.FOREST and neighbour.heat != 0):
+				var dir: Vector2 = neighbour.position - tile.position
 				#rescale diagonals
 				if (dir.x != 0 and dir.y != 0):
 					dir /= sqrt(2)
-				total_heat += maxf(tile.heat / 10, wind.dot(dir) * tile.heat)
-		#the increase in heat is dependent on the total_heat
+				target_heat += ((wind.dot(dir) + 1) / 2 * neighbour.heat)
+		target_heat *= TEMPERATURE
 		var normal_sample: float = 0
 		for i in range(12):
 			normal_sample += randf()
 		normal_sample = normal_sample / 12
-		forest_tile.heat += minf(0.2, 2 * total_heat * (normal_sample / 12))
-		if forest_tile.heat < 0.2:
-			forest_tile.burn_state = BurnState.NONE
-		elif forest_tile.heat < 0.4:
-			forest_tile.burn_state = BurnState.LOW
-		elif forest_tile.heat < 0.8:
-			forest_tile.burn_state = BurnState.MEDIUM
+		#print(normal_sample)
+		#print(target_heat, " ", tile.heat)
+		tile.new_heat = min(1, max(tile.heat, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
+		#if tile.heat != 0:
+		#	print(tile.heat)
+		if tile.heat < 0.2:
+			tile.burn_state = BurnState.NONE
+		elif tile.heat < 0.4:
+			tile.burn_state = BurnState.LOW
+		elif tile.heat < 0.8:
+			tile.burn_state = BurnState.MEDIUM
 		else:
-			forest_tile.burn_state = BurnState.HIGH
-		forest_tile.accumulated_heat += forest_tile.heat
-		if forest_tile.accumulated_heat > BURN_THRESHOLD:
-			forest_tile.burn_state = BurnState.HIGH
-		
+			tile.burn_state = BurnState.HIGH
+		tile.accumulated_heat += tile.heat
+		if tile.accumulated_heat > BURN_THRESHOLD:
+			tile.burn_state = BurnState.BURNT
+			tile.heat = 0
+	for tile in get_tree().get_first_node_in_group("TileMap").map:
+		tile.heat = tile.new_heat
