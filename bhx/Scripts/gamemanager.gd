@@ -65,17 +65,15 @@ func update_burn_state() -> void:
 	# - the burn states of the adjacent tiles, weighed by the wind direction
 	# - the wind strength
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
-		if tile.type != TileType.FOREST and tile.burn_state != BurnState.BURNT:
+		if tile.type != TileType.FOREST or tile.burn_state == BurnState.BURNT:
 			continue
 		#find the total heat
 		var target_heat: float = 0
 		for idx in tile.get_neighbours():
 			var neighbour: Tile = get_tree().get_first_node_in_group("TileMap").map[idx]
 			if (neighbour.type == TileType.FOREST and neighbour.heat != 0):
-				var dir: Vector2 = neighbour.position - tile.position
+				var dir: Vector2 = Vector2(neighbour.position - tile.position).normalized()
 				#rescale diagonals
-				if (dir.x != 0 and dir.y != 0):
-					dir /= sqrt(2)
 				target_heat += ((wind.dot(dir) + 1) / 2 * neighbour.heat)
 		target_heat *= TEMPERATURE
 		var normal_sample: float = 0
@@ -84,7 +82,7 @@ func update_burn_state() -> void:
 		normal_sample = normal_sample / 12
 		#print(normal_sample)
 		#print(target_heat, " ", tile.heat)
-		tile.new_heat = min(1, max(tile.heat, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
+		tile.new_heat = min(1, max(tile.heat / 2, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
 		#if tile.heat != 0:
 		#	print(tile.heat)
 		if tile.heat < 0.2:
@@ -96,7 +94,7 @@ func update_burn_state() -> void:
 		else:
 			tile.burn_state = BurnState.HIGH
 		tile.accumulated_heat += tile.heat
-		if tile.accumulated_heat > BURN_THRESHOLD:
+		if tile.accumulated_heat > BURN_THRESHOLD and tile.burn_state != BurnState.NONE:
 			tile.burn_state = BurnState.BURNT
 			tile.heat = 0
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
