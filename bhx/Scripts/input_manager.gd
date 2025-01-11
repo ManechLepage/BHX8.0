@@ -74,7 +74,6 @@ func update_hover() -> void:
 	for tile in tilemap.map:
 			if tilemap.indicators.get_cell_atlas_coords(tile.position + tilemap.offset) == Vector2i(0, 1):
 				var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
-				print(ground_atlas)
 				tilemap.indicators.set_cell(tile.position + tilemap.offset, 1, ground_atlas - Vector2i(1, 0))
 				break
 	if selecting_type != SelectingType.NONE:
