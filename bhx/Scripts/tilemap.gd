@@ -57,6 +57,12 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Reset"):
 		_ready()
 
+func load_water() -> void:
+	for x in range(256):
+		for y in range(256):
+			if not ground.get_cell_tile_data(Vector2i(x, y) + offset):
+				ground.set_cell(Vector2i(x, y) + offset, 0, Vector2i(0, 2))
+
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var used_position: Vector2 = Vector2(position.x, position.y / 2)
 	var value1: float = noise.get_noise_2dv(used_position / params.scale * 5)
@@ -114,11 +120,12 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	# Angle values: [-1; 1]
 	angle *= 180 / 90  # range [-2, 2]
 	angle = round(angle)
+	print(angle)
 	var all_neighbours: Array[Vector2i] = ground.get_surrounding_cells(tile.position)
 	var index: int = angle + 2
 	
-	if index >= all_neighbours.size():
-		index = randi_range(0, all_neighbours.size() - 1)
+	if index == -2:
+		index = 2
 	
 	var tile_position: Vector2i = all_neighbours[index]
 	return get_tile_from_position(generated_map, tile_position)
@@ -140,7 +147,7 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 		var step: int = 0
 		var number_of_land_tiles: int = 0
 		while true:
-			direction = direction_noise.get_noise_1d(step)
+			direction = direction_noise.get_noise_1d(step) * 3
 			var neighbour_in_direction: Tile = get_neighbour_from_angle(generated_map, start_water, start_direction)
 			step += 1
 			
