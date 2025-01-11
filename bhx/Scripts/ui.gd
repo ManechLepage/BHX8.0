@@ -22,7 +22,6 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("1"):
 		destroy()
-		animate_score(10, 0.2)
 	elif Input.is_action_just_pressed("2"):
 		plane()
 	elif Input.is_action_just_pressed("3"):
