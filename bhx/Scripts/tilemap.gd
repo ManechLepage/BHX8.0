@@ -24,7 +24,7 @@ func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
 	
-	Gamemanager.reset()
+	Gamemanager.reset(2)
 	
 	start_number_of_trees = 0
 	for tile in map:

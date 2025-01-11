@@ -37,7 +37,7 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
 		duplicate_clock(get_clicked_tile().position)
 		await get_tree().create_timer(10.0).timeout
-		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
+		plane_script.plane_funct11ion(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE
 		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
