@@ -15,10 +15,12 @@ var noise_plains: FastNoiseLite
 
 var start_number_of_trees: int
 var dryness_level: int = 0
+
 var diff: float
 var min_diff: float
 var decay: float
 var time: float
+
 var offset: Vector2i
 
 func _ready() -> void:
@@ -38,7 +40,7 @@ func try_load_next_level():
 	if Gamemanager.did_win:
 		var year: int = 2020 + (diff - 1) * 10
 		rename_year_title("Date - " + str(year))
-		set_money(1100)
+		set_money(0)
 		hide_win_screen()
 		load_level()
 
