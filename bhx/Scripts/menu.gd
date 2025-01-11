@@ -4,6 +4,7 @@ extends Control
 @onready var control: Control = $"../Control"
 @onready var settings: Control = $"../Settings"
 @onready var background: Node2D = $"../../Background"
+@onready var title: TextureRect = $Title
 
 func _ready() -> void:
 	background.visible = true
@@ -12,6 +13,15 @@ func _ready() -> void:
 	control.visible = false
 	visible = true
 	settings.visible = false
+	while true:
+		if visible:
+			var tween = create_tween()
+			tween.tween_property(title, "scale", Vector2(4.7, 4.7), 0.6).set_ease(Tween.EASE_IN_OUT)
+			await tween.finished
+			var tween2 = create_tween()
+			tween2.tween_property(title, "scale", Vector2(4.0, 4.0), 0.6).set_ease(Tween.EASE_IN_OUT)
+			await tween2.finished
+
 
 
 func _on_button_2_pressed() -> void:
