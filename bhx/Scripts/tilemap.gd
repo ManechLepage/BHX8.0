@@ -37,7 +37,10 @@ func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	value += forest_intensity * 0.5;
 	
 	if value > 0:
-		return Gamemanager.TileType.FOREST
+		if randi_range(1, 10) != 1:
+			return Gamemanager.TileType.FOREST
+		else:
+			return Gamemanager.TileType.PLAINS
 	else:
 		return Gamemanager.TileType.WATER
 

@@ -11,6 +11,7 @@ const tick_multiplier: float = 0.95
 
 enum TileType {
 	FOREST,
+	PLAINS,
 	WATER
 }
 
