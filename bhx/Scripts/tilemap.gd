@@ -14,16 +14,11 @@ var noise_plains: FastNoiseLite
 @onready var timer: Timer = $Timer
 
 var start_number_of_trees: int
-<<<<<<< HEAD
-var diff: int
 var dryness_level: int = 0
-=======
 var diff: float
 var min_diff: float
 var decay: float
 var time: float
->>>>>>> parent of 02af4a9 (Merge branch 'main' of https://github.com/ManechLepage/BHX8.0)
-
 var offset: Vector2i
 
 func _ready() -> void:
