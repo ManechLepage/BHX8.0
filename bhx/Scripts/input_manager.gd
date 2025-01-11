@@ -38,12 +38,13 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
-		duplicate_clock(get_clicked_tile().position, 11.5, 0.4)
+		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
 		await get_tree().create_timer(10.0).timeout
 		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE
 		did_do_something = true
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
+		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
 		await get_tree().create_timer(10.0).timeout
 		var clicked_position: Vector2 = get_clicked_tile().position
 		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
