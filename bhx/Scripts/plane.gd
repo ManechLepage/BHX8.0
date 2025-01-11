@@ -1,13 +1,12 @@
 class_name Plane1
 extends Node
 
-@onready var tilemap: TileManager = $"../Tilemap"
+@onready var tilemap: TileManager = $"../Game/Tilemap"
 
 @export var plane: PackedScene
 
 func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 	Sound.plane()
-	
 	var tiles: Array[Tile] = []
 	var tileManager: TileManager = get_tree().get_first_node_in_group("TileMap")
 
@@ -31,17 +30,18 @@ func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 		
 		if not (position.x < 0 or position.x >= tileManager.params.dimensions.x or position.y < 0 or position.y >= tileManager.params.dimensions.y):
 			tiles.append(tileManager.get_tile_from_position(map, position))
-	
+
 	for tile in tiles:
-		if not only_center:
-			# tile.type = Gamemanager.TileType.PLAINS
-			tile.heat = 0
-			tile.burn_state = Gamemanager.BurnState.NONE
-		else:
-			# tile.type = Gamemanager.TileType.PLAINS
-			tile.heat *= 0
-			tile.burn_state = Gamemanager.BurnState.NONE
-	
+		if tile.type == Gamemanager.TileType.FOREST and tile.burn_state != Gamemanager.BurnState.BURNT:
+			if not only_center:
+				# tile.type = Gamemanager.TileType.PLAINS
+				tile.heat = 0
+				tile.burn_state = Gamemanager.BurnState.NONE
+			else:
+				# tile.type = Gamemanager.TileType.PLAINS
+				tile.heat *= 0
+				tile.burn_state = Gamemanager.BurnState.NONE
+
 	if not only_center:
 		var center_side_1: Vector2 = center + Vector2(1, 0)
 		var center_side_2: Vector2 = center + Vector2(-1, 0)

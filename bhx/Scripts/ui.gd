@@ -4,6 +4,7 @@ extends Control
 @onready var money: Panel = $money
 @onready var wind: TextureRect = $Wind
 @onready var score: Panel = $Score
+@onready var year_title: Label = $Title
 
 @export var events: Array[Event]
 var input_manager: InputManager

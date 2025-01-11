@@ -2,7 +2,7 @@ class_name InputManager
 extends Node2D
 @onready var clock: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var tilemap: TileManager = $"../Tilemap"
-@onready var plane_script: Plane1 =$"../Plane"
+@onready var plane_script: Plane1 = $"../../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
 
 enum SelectingType {
@@ -16,7 +16,9 @@ enum SelectingType {
 var selecting_type: SelectingType
 var prev_selected: Tile
 func duplicate_clock(position,time,speed):
+	clock.visible = false
 	var new_clock = clock.duplicate()
+	new_clock.visible = true
 	new_clock.global_position = position
 	add_child(new_clock)
 	new_clock.play()
@@ -40,17 +42,20 @@ func _input(event: InputEvent) -> void:
 		destroy()
 
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
+		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
+
 		selecting_type = SelectingType.NONE
 		var clicked_pos: Vector2 = get_clicked_tile().position
-		duplicate_clock(get_clicked_tile().position, 11.5, 0.4)
 		await get_tree().create_timer(10.0).timeout
 		plane_script.plane_function(tilemap.map, clicked_pos)
 
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
+		duplicate_clock(get_global_mouse_position(), 11.5, 0.4)
+		await get_tree().create_timer(10.0).timeout
 		selecting_type = SelectingType.NONE
+
 		var clicked_position: Vector2 = get_clicked_tile().position
 		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
-		await get_tree().create_timer(10.0).timeout
 		for center in centers:
 			plane_script.plane_function(tilemap.map, center)
 
