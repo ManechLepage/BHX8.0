@@ -18,8 +18,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Test1"):
 		selecting_type = SelectingType.DESTROY1
-	#elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.DESTROY1:
-	elif Input.is_action_just_pressed("Click"):
+	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.DESTROY1:
 		destroy()
 		selecting_type = SelectingType.NONE
 
