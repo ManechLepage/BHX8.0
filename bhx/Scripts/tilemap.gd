@@ -38,6 +38,7 @@ func _ready() -> void:
 	
 	offset = params.dimensions / -2
 	
+	Gamemanager.update()
 	update()
 
 func update() -> void:
