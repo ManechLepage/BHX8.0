@@ -14,6 +14,7 @@ enum SelectingType {
 }
 
 var selecting_type: SelectingType
+var prev_selected: Tile
 func duplicate_clock(position,time,speed):
 	var new_clock = clock.duplicate()
 	new_clock.global_position = position
@@ -63,9 +64,12 @@ func get_clicked_tile() -> Tile:
 	return tilemap.get_tile_from_position(tilemap.map, coords)
 
 func update_hover() -> void:
-	for tile in tilemap.indicators.get_used_cells():
-			if tilemap.indicators.get_cell_atlas_coords(tile) == Vector2i(0, 1):
-				tilemap.indicators.erase_cell(tile)
+	for tile in tilemap.map:
+			if tilemap.indicators.get_cell_atlas_coords(tile.position + tilemap.offset) == Vector2i(0, 1):
+				var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
+				print(ground_atlas)
+				tilemap.indicators.set_cell(tile.position + tilemap.offset, 1, ground_atlas - Vector2i(1, 0))
+				break
 	if selecting_type != SelectingType.NONE:
 		tilemap.indicators.set_cell(tilemap.indicators.local_to_map(get_global_mouse_position()), 1, Vector2i(0, 1))
 
