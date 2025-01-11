@@ -6,15 +6,7 @@ extends Node
 @export var plane: PackedScene
 
 func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
-	var lowest_y: int = 200
-	var lowest_tile: Tile
-	for tile in map:
-		if tile.position.y < lowest_y:
-			lowest_y = tile.position.y
-			lowest_tile = tile
-	var plane_scene = plane.instantiate()
-	get_parent().add_child(plane_scene)
-	plane_scene.position = tilemap.ground.map_to_local(lowest_tile.position)
+	
 	
 	Sound.plane()
 	var tiles: Array[Tile] = []
@@ -57,3 +49,8 @@ func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 		
 		for c in [center_side_1, center_side_2]:
 			plane_function(map, c, true)
+		
+		var direction: Vector2 = Vector2(tiles[-1].position).direction_to(Vector2(tiles[0].position))
+		var plane_scene = plane.instantiate()
+		get_parent().add_child(plane_scene)
+		plane_scene.position = tilemap.ground.map_to_local(tiles[0].position)  - (direction * 100) - Vector2(1500, 0)
