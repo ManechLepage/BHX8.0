@@ -49,12 +49,12 @@ func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var value2: float = noise.get_noise_2dv(used_position / params.scale * 20)
 	
 	var value: float = value1 * 0.75 + value2 * 0.25
+	var forest_intensity: float = get_center_proximity(position) * 1.25 - 1
+	# forest_intensity = 0: value += -1, forest_intensity = 1, value += 0.15
 	
-	var forest_intensity: float = get_center_proximity(position) * 2 - 1
+	value -= forest_intensity * 0.75;
 	
-	value -= forest_intensity * 0.5;
-	
-	if value > 0:
+	if value > 0.4:
 		if randi_range(1, 10) != 1:
 			return Gamemanager.TileType.FOREST
 		else:
