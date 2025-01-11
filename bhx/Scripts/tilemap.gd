@@ -79,7 +79,7 @@ func load_water() -> void:
 	for x in range(256):
 		for y in range(256):
 			if not ground.get_cell_tile_data(Vector2i(x, y) + offset):
-				ground.set_cell(Vector2i(x, y) + offset, 0, Vector2i(0, 2))
+				ground.set_cell(Vector2i(x, y) + offset - Vector2i(128, 128), 0, Vector2i(0, 2))
 
 func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
 	var used_position: Vector2 = Vector2(position.x, position.y / 2)
