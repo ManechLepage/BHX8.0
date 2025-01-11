@@ -1,11 +1,13 @@
 extends Node
 
+var tiles: Array[Tile]
+
 enum TileType {
 	FOREST,
 	WATER
 }
 
-enum Burn {
+enum BurnState {
 	NONE,
 	LOW,
 	MEDIUM,
