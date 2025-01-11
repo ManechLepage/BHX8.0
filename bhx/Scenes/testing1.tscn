@@ -130,7 +130,6 @@ autostart = true
 [node name="Camera2D" type="Camera2D" parent="Game"]
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("5_3eim0")
-shake_fade = 1.0
 
 [node name="InputManager" type="Node2D" parent="Game" groups=["InputManager"]]
 script = ExtResource("7_rwkuo")

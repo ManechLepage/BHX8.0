@@ -91,9 +91,9 @@ func duplicate_jicleur() -> Vector2:
 	return new_jicleur.global_position
 
 func destroy() -> void:
-	camera_2d.apply_shake(1.0)
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
+		camera_2d.apply_shake(1.0, 1.0)
 		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
 		if coords.y % 2 == 0:
