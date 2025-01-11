@@ -24,16 +24,22 @@ func _input(event: InputEvent) -> void:
 		destroy()
 		selecting_type = SelectingType.NONE
 
-func destroy() -> void:
-	jicleur_de_terre.global_position = tilemap.ground.get_local_mouse_position()
-	jicleur_de_terre.emitting = true
+func duplicate_jicleur() -> Vector2:
+	var new_jicleur = jicleur_de_terre.duplicate()
+	new_jicleur.global_position = get_global_mouse_position()
+	add_child(new_jicleur)
+	new_jicleur.emitting = true
 	await get_tree().create_timer(4.0).timeout
-	jicleur_de_terre.emitting = false
-	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
-	if coords.y % 2 == 0:
-		coords += Vector2i(0, 1)
-	else:
-		coords += Vector2i(0, 1)
+	new_jicleur.emitting = false
+	return new_jicleur.global_position
+	
+func destroy() -> void:
+	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	if tilemap.get_tile_from_position(tilemap.map, coords).type == Game.TileType.FOREST:
+		var position_jic = await duplicate_jicleur()
+		if coords.y % 2 == 0:
+			coords += Vector2i(0, 1)
+		else:
+			coords += Vector2i(0, 1)
 		tilemap.delete_forest(coords)
 		tilemap.update()

@@ -84,7 +84,6 @@ position = Vector2(0, 3)
 tile_set = SubResource("TileSet_wjvrg")
 
 [node name="Timer" type="Timer" parent="Tilemap"]
-wait_time = 0.1
 autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
