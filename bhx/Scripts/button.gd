@@ -12,4 +12,4 @@ func load_event(_event: Event) -> void:
 	image.texture = event.sprite
 	name_label.text = event.name
 	price.text = str(event.cost)
-	time.text = str(event.duration) + "s"
+	time.text = str(event.duration)
