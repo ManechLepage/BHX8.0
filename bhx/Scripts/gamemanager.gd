@@ -85,7 +85,7 @@ func update_burn_state() -> void:
 		normal_sample = normal_sample / 12
 		#print(normal_sample)
 		#print(target_heat, " ", tile.heat)
-		tile.new_heat = min(1, max(tile.heat / 10, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
+		tile.new_heat = min(1, max(tile.heat / 2, tile.heat * normal_sample + target_heat * (1 - normal_sample)))
 
 		if tile.heat < 0.2:
 			tile.burn_state = BurnState.NONE
