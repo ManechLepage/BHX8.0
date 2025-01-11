@@ -2,5 +2,6 @@ extends Node
 
 @onready var gamemanager: Game = $".."
 
-func load_tiles(_tiles: Array[Tile]) -> void:
-	gamemanager.tiles = _tiles
+func update_tile_map(tiles: Array[Tile]) -> void:
+	for tile in tiles:
+		pass
