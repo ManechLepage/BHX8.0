@@ -1,13 +1,12 @@
 class_name Plane1
 extends Node
 
-@onready var tilemap: TileManager = $"../Tilemap"
+@onready var tilemap: TileManager = $"../Game/Tilemap"
 
 @export var plane: PackedScene
 
 func plane_function(map: Array[Tile], center: Vector2, only_center: bool=false):
 	Sound.plane()
-	
 	var tiles: Array[Tile] = []
 	var tileManager: TileManager = get_tree().get_first_node_in_group("TileMap")
 

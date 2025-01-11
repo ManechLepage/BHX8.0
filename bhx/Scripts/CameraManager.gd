@@ -8,6 +8,12 @@ const ZOOM_INCREMENT: float = 0.8
 
 const ZOOM_RATE: float = 8.0
 
+@export var shake_fade: float
+
+var rng = RandomNumberGenerator.new()
+
+var shake_strength: float = 0.0
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if event.button_mask == MOUSE_BUTTON_MASK_RIGHT:
@@ -34,3 +40,14 @@ func _physics_process(delta: float) -> void:
 		ZOOM_RATE * delta
 	)
 	set_physics_process(not is_equal_approx(zoom.x, target_zoom))
+
+func apply_shake(strength) -> void:
+	shake_strength = strength
+
+func _process(delta: float) -> void:
+	if shake_strength > 0:
+		shake_strength = lerpf(shake_strength, 0, shake_fade * delta)
+		offset = random_offset()
+
+func random_offset() -> Vector2:
+	return Vector2(rng.randf_range(-shake_strength, shake_strength), rng.randf_range(-shake_strength, shake_strength))
