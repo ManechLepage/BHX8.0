@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cn5umdfms0dnj" path="res://Graphix/clock4.png" id="15_nq8i4"]
 [ext_resource type="Texture2D" uid="uid://csn8b40jxcrxe" path="res://Graphix/clock5.png" id="16_ojtjj"]
 [ext_resource type="PackedScene" uid="uid://c10sr21runtq0" path="res://Scenes/menu.tscn" id="17_ucfh6"]
-[ext_resource type="PackedScene" path="res://Scenes/settings.tscn" id="18_fndpc"]
+[ext_resource type="PackedScene" uid="uid://k8ike2h4ticd" path="res://Scenes/settings.tscn" id="18_fndpc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
