@@ -18,10 +18,16 @@ func _ready() -> void:
 			actions_list.get_child(i).pressed.connect(plane_ultimate)
 
 func destroy() -> void:
-	input_manager.selecting_type = input_manager.SelectingType.DESTROY1
+	if money.money - events[0].cost >= 0:
+		money.money -= events[0].cost
+		input_manager.selecting_type = input_manager.SelectingType.DESTROY1
 
 func plane() -> void:
-	input_manager.selecting_type = input_manager.SelectingType.PLANE1
+	if money.money - events[1].cost >= 0:
+		money.money -= events[1].cost
+		input_manager.selecting_type = input_manager.SelectingType.PLANE1
 
 func plane_ultimate() -> void:
-	input_manager.selecting_type = input_manager.SelectingType.PLANE2
+	if money.money - events[2].cost >= 0:
+		money.money -= events[2].cost
+		input_manager.selecting_type = input_manager.SelectingType.PLANE2

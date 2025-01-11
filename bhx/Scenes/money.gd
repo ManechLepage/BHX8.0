@@ -11,4 +11,6 @@ func _ready() -> void:
 
 func _on_money_timer_timeout() -> void:
 	money += 1000
+
+func _process(delta: float) -> void:
 	money_label.text = str(money)
