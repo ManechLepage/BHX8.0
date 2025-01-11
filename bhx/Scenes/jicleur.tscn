@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf5soxq4dqwk0"]
+
+[sub_resource type="Gradient" id="Gradient_uvmjl"]
+colors = PackedColorArray(0.580566, 0.718013, 1, 1, 0.0395615, 0.0821653, 0.617486, 1)
+
+[node name="Node2D" type="CPUParticles2D"]
+amount = 100
+direction = Vector2(0, 1)
+initial_velocity_min = 164.95
+initial_velocity_max = 206.19
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_ramp = SubResource("Gradient_uvmjl")
