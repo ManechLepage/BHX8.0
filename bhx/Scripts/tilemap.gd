@@ -11,8 +11,7 @@ var noise_plains: FastNoiseLite
 @onready var ground: TileMapLayer = $Ground
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
-
-	
+var start_number_of_trees: int
 
 var offset: Vector2i
 
@@ -26,6 +25,11 @@ func _ready() -> void:
 	map = generate()
 	
 	Gamemanager.reset()
+	
+	start_number_of_trees = 0
+	for tile in map:
+		if tile.type == Gamemanager.TileType.FOREST and tile.burn_state == Gamemanager.BurnState.NONE:
+			start_number_of_trees += 1
 	
 	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
 	get_random_tile(forest_tiles).heat = 1
@@ -66,8 +70,8 @@ func generate() -> Array[Tile]:
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
 			tile.params = params
-			tile.burn_state = Gamemanager.BurnState.HIGH
-			tile.heat = 1
+			tile.burn_state = Gamemanager.BurnState.NONE
+			tile.heat = 0
 			tile.position = position
 			generated_map.append(tile)
 	
@@ -223,6 +227,7 @@ func delete_forest(position: Vector2i) -> void:
 	var tile: Tile = get_tile_from_position(map, position)
 	tile.type = Game.TileType.PLAINS
 	update()
+	update_if_player_win()
 
 func get_number_of_remaining_trees() -> int:
 	var i: int = 0
@@ -234,7 +239,7 @@ func get_number_of_remaining_trees() -> int:
 func get_percentage_of_remaining_trees() -> float:
 	var number_of_remaining_trees: int = get_number_of_remaining_trees()
 	var number_of_total_trees: int = Gamemanager.get_forest_tiles().size()
-	return float(number_of_remaining_trees / number_of_total_trees)
+	return float(float(number_of_remaining_trees) / float(start_number_of_trees))
 
 func is_forest_safe() -> bool:
 	var safe: bool = true
@@ -244,3 +249,10 @@ func is_forest_safe() -> bool:
 				safe = false
 				break
 	return safe
+
+func update_if_player_win() -> void:
+	if is_forest_safe():
+		var percentage: float = get_percentage_of_remaining_trees()
+		var left: int = get_number_of_remaining_trees()
+		Gamemanager.output_score(left, percentage)
+		Gamemanager.did_win = true

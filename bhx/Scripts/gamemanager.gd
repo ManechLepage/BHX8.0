@@ -57,11 +57,7 @@ func update() -> void:
 	
 	if not did_win:
 		var tileMap = get_tree().get_first_node_in_group("TileMap")
-		if tileMap.is_forest_safe():
-			var percentage: float = tileMap.get_percentage_of_remaining_trees()
-			var left: int = tileMap.get_number_of_remaining_trees()
-			output_score(left, percentage)
-			did_win = true
+		tileMap.update_if_player_win()
 
 func update_wind() -> void:
 	wind_orientation = (dir_noise.get_noise_1d(tick * DIR_SPEED) + 1) * PI
@@ -113,4 +109,4 @@ func update_burn_state() -> void:
 		tile.heat = tile.new_heat
 
 func output_score(left: int, percentage: float) -> void:
-	get_tree().get_first_node_in_group("UI").animate_score(left, percentage)
+	get_tree().get_first_node_in_group("UI").animate_score(left, round(percentage * 100) / 100)
