@@ -2,11 +2,20 @@ class_name TileManager
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
+
+var dimensions: Vector2 = Vector2(32, 32)
+var seed: int = randi_range(0, 100000000000000)
+var map: Array[Array] = []
+
 func _ready() -> void:
-	pass # Replace with function body.
+	map = generate(seed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func generate(seed) -> Array[Array]:
+	var generated_map: Array[Array] = []
+	
+	for y in range(dimensions[1]):
+		generated_map.append([])
+		for x in range(dimensions[0]):
+			generated_map[-1].append(0)
+	
+	return generated_map

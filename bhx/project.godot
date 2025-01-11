@@ -12,6 +12,6 @@ config_version=5
 
 config/name="BHX"
 config/tags=PackedStringArray("2d", "game", "pixel_art", "simulation")
-run/main_scene="res://Scenes/testing1.tscn"
+run/main_scene="res://Scenes/map_generator.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
