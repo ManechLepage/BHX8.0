@@ -28,6 +28,12 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE1:
 		plane_script.plane_function(tilemap.map, get_clicked_tile().position)
 		selecting_type = SelectingType.NONE
+	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.PLANE2:
+		var clicked_position: Vector2 = get_clicked_tile().position
+		var centers: Array[Vector2] = [clicked_position, clicked_position + Vector2(5, 0), clicked_position - Vector2(5, 0)]
+		for center in centers:
+			plane_script.plane_function(tilemap.map, center)
+		selecting_type = SelectingType.NONE
 
 func get_clicked_tile() -> Tile:
 	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
