@@ -16,17 +16,16 @@ var offset: Vector2i
 
 func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
-	Gamemanager.reset()
 	map = generate()
 	
-	#Gamemanager.reset()
+	Gamemanager.reset()
 	
 	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
 	get_random_tile(forest_tiles).heat = 1
 	
 	offset = params.dimensions / -2
 	
-	#Gamemanager.update()
+	Gamemanager.update()
 	update()
 
 func update() -> void:
@@ -210,7 +209,7 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 
 
 func _on_timer_timeout() -> void:
-	#Gamemanager.update()
+	Gamemanager.update()
 	update()
 
 func delete_forest(position: Vector2i) -> void:
