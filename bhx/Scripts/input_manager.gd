@@ -25,7 +25,7 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 
 func destroy() -> void:
-	jicleur_de_terre.global_position = get_global_mouse_position()
+	jicleur_de_terre.global_position = tilemap.ground.get_local_mouse_position()
 	jicleur_de_terre.emitting = true
 	await get_tree().create_timer(4.0).timeout
 	jicleur_de_terre.emitting = false
