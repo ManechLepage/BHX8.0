@@ -12,7 +12,7 @@ var noise_plains: FastNoiseLite
 @onready var ground_cover: TileMapLayer = $GroundCover
 @onready var indicators: TileMapLayer = $Indicatiors
 var start_number_of_trees: int
-
+@onready var lightning: Sprite2D = $"../../Lightning"
 var offset: Vector2i
 
 func _ready() -> void:
@@ -32,8 +32,9 @@ func _ready() -> void:
 			start_number_of_trees += 1
 	
 	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
-	get_random_tile(forest_tiles).heat = 1
-	
+	var sigma = get_random_tile(forest_tiles)
+	sigma.heat = 1
+	lightning.position = sigma.position
 	offset = params.dimensions / -2
 	
 	Gamemanager.update()
