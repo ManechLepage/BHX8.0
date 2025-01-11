@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2gvh2odu707o"]
+[gd_scene load_steps=4 format=3 uid="uid://c2gvh2odu707o"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_4n5kj"]
+[ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_kvrtc"]
 
 [sub_resource type="TileSet" id="TileSet_wjvrg"]
 tile_shape = 1
@@ -10,6 +11,7 @@ tile_size = Vector2i(32, 16)
 
 [node name="Tilemap" type="Node2D" parent="."]
 script = ExtResource("1_4n5kj")
+params = ExtResource("2_kvrtc")
 
 [node name="Ground" type="TileMapLayer" parent="Tilemap"]
 tile_set = SubResource("TileSet_wjvrg")

@@ -1,21 +1,35 @@
 class_name TileManager
 extends Node2D
 
-
-
-var dimensions: Vector2 = Vector2(32, 32)
-var seed: int = randi_range(0, 100000000000000)
-var map: Array[Array] = []
+var map: Array[Array]
+@export var params: GeneratorParams
+var noise: Noise
 
 func _ready() -> void:
-	map = generate(seed)
+	params.seed = randi_range(0, 100000000000000)
+	noise = FastNoiseLite.new()
+	noise.seed = params.seed
+	noise.noise_type = params.noise_type
+	map = generate()
 
-func generate(seed) -> Array[Array]:
+func generate() -> Array[Array]:
 	var generated_map: Array[Array] = []
 	
-	for y in range(dimensions[1]):
+	for y in range(params.dimensions[1]):
 		generated_map.append([])
-		for x in range(dimensions[0]):
-			generated_map[-1].append(0)
+		for x in range(params.dimensions[0]):
+			var tile: Tile = Gamemanager.Tile()
+			var position: Vector2i = Vector2i(x, y)
+			tile.type = get_tile_type(position)
+			tile.burn_state = Gamemanager.BurnState.NONE
+			tile.position = position
+			generated_map[-1].append(tile)
 	
 	return generated_map
+
+func get_tile_type(position: Vector2i) -> Gamemanager.TileType:
+	var value: float = noise.get_noise_2d(position.x / params.scale, position.y / params.scale)
+	if value > -0.2:
+		return Gamemanager.TileType.FOREST
+	else:
+		return Gamemanager.TileType.WATER
