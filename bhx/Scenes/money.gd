@@ -10,6 +10,5 @@ func _ready() -> void:
 
 
 func _on_money_timer_timeout() -> void:
-	money += 100
+	money += 1000
 	money_label.text = str(money)
-	print("+100")
