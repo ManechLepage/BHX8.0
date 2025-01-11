@@ -18,11 +18,19 @@ func _ready() -> void:
 	selecting_type = SelectingType.NONE
 
 func _input(event: InputEvent) -> void:
+	update_hover()
 	if Input.is_action_just_pressed("Test1"):
 		selecting_type = SelectingType.DESTROY1
 	elif Input.is_action_just_pressed("Click") and selecting_type == SelectingType.DESTROY1:
 		destroy()
 		selecting_type = SelectingType.NONE
+
+func update_hover() -> void:
+	for tile in tilemap.indicators.get_used_cells():
+			if tilemap.indicators.get_cell_atlas_coords(tile) == Vector2i(0, 1):
+				tilemap.indicators.erase_cell(tile)
+	if selecting_type != SelectingType.NONE:
+		tilemap.indicators.set_cell(tilemap.indicators.local_to_map(get_global_mouse_position()), 1, Vector2i(0, 1))
 
 func duplicate_jicleur() -> Vector2:
 	var new_jicleur = jicleur_de_terre.duplicate()
