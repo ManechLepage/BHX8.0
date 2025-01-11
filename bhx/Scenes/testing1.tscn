@@ -148,5 +148,6 @@ sprite_frames = SubResource("SpriteFrames_wg4tm")
 [node name="Control" parent="CanvasLayer" instance=ExtResource("8_3idkp")]
 
 [node name="Menu" parent="CanvasLayer" instance=ExtResource("17_ucfh6")]
+visible = false
 
 [connection signal="timeout" from="Game/Tilemap/Timer" to="Game/Tilemap" method="_on_timer_timeout"]
