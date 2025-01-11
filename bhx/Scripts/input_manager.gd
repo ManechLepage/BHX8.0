@@ -88,7 +88,7 @@ func duplicate_jicleur() -> Vector2:
 func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	var tile: Tile = tilemap.get_tile_from_position(tilemap.map, coords)
-	if tile.type == Game.TileType.FOREST and tile.burn_state != Gamemanager.BurnState.HIGH:
+	if tile.type == Game.TileType.FOREST and tile.burn_state >= Gamemanager.BurnState.MEDIUM:
 		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
 		if coords.y % 2 == 0:
