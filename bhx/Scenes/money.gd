@@ -7,7 +7,7 @@ var money: int
 var dont_change: bool
 
 func _ready() -> void:
-	money = 100
+	money = 1100
 	money_label.text = str(money)
 
 
