@@ -1,9 +1,11 @@
 class_name InputManager
 extends Node2D
+
 @onready var clock: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var tilemap: TileManager = $"../Tilemap"
 @onready var plane_script: Plane1 = $"../../Plane"
 @onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 enum SelectingType {
 	NONE,
@@ -14,6 +16,7 @@ enum SelectingType {
 }
 
 var selecting_type: SelectingType
+var prev_selected: Tile
 func duplicate_clock(position,time,speed):
 	clock.visible = false
 	var new_clock = clock.duplicate()
@@ -68,9 +71,12 @@ func get_clicked_tile() -> Tile:
 	return tilemap.get_tile_from_position(tilemap.map, coords)
 
 func update_hover() -> void:
-	for tile in tilemap.indicators.get_used_cells():
-			if tilemap.indicators.get_cell_atlas_coords(tile) == Vector2i(0, 1):
-				tilemap.indicators.erase_cell(tile)
+	for tile in tilemap.map:
+			if tilemap.indicators.get_cell_atlas_coords(tile.position + tilemap.offset) == Vector2i(0, 1):
+				var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
+				print(ground_atlas)
+				tilemap.indicators.set_cell(tile.position + tilemap.offset, 1, ground_atlas - Vector2i(1, 0))
+				break
 	if selecting_type != SelectingType.NONE:
 		tilemap.indicators.set_cell(tilemap.indicators.local_to_map(get_global_mouse_position()), 1, Vector2i(0, 1))
 
@@ -88,6 +94,7 @@ func destroy() -> void:
 	var coords: Vector2i = tilemap.ground.local_to_map(get_global_mouse_position()) + tilemap.offset
 	var t: Tile = tilemap.get_tile_from_position(tilemap.map, coords)
 	if t.type == Game.TileType.FOREST and t.heat < 0.1:
+		camera_2d.apply_shake(1.0, 1.0)
 		Sound.jicle()
 		var position_jic = await duplicate_jicleur()
 		if coords.y % 2 == 0:
