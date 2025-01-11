@@ -223,3 +223,24 @@ func delete_forest(position: Vector2i) -> void:
 	var tile: Tile = get_tile_from_position(map, position)
 	tile.type = Game.TileType.PLAINS
 	update()
+
+func get_number_of_remaining_trees() -> int:
+	var i: int = 0
+	for tile in map:
+		if tile.burn_state == Gamemanager.BurnState.NONE:
+			i += 1
+	return i
+
+func get_percentage_of_remaining_trees() -> float:
+	var number_of_remaining_trees: int = get_number_of_remaining_trees()
+	var number_of_total_trees: int = Gamemanager.get_forest_tiles().size()
+	return float(number_of_remaining_trees / number_of_total_trees)
+
+func is_forest_safe() -> bool:
+	var safe: bool = true
+	for tile in map:
+		if tile.type == Gamemanager.TileType.FOREST:
+			if tile.burn_state != Gamemanager.BurnState.NONE and tile.burn_state != Gamemanager.BurnState.BURNT:
+				safe = false
+				break
+	return safe
