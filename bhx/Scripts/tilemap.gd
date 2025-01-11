@@ -1,6 +1,6 @@
 class_name TileManager
 extends Node2D
-
+var wintermap = 0
 var map: Array[Tile]
 var rng: RandomNumberGenerator
 @export var params: GeneratorParams
@@ -16,16 +16,17 @@ var offset: Vector2i
 
 func _ready() -> void:
 	params.seed = randi_range(0, 100000000000000)
+	Gamemanager.reset()
 	map = generate()
 	
-	Gamemanager.reset()
+	#Gamemanager.reset()
 	
 	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
 	get_random_tile(forest_tiles).heat = 1
 	
 	offset = params.dimensions / -2
 	
-	Gamemanager.update()
+	#Gamemanager.update()
 	update()
 
 func update() -> void:
@@ -59,7 +60,8 @@ func generate() -> Array[Tile]:
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
 			tile.params = params
-			tile.burn_state = Gamemanager.BurnState.NONE
+			tile.burn_state = Gamemanager.BurnState.HIGH
+			tile.heat = 1
 			tile.position = position
 			generated_map.append(tile)
 	
@@ -112,9 +114,14 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 	for tile in indicators.get_used_cells():
 		indicators.erase_cell(tile)
 	
+	if randi() & 1:
+		if randi() & 1:
+			if randi() & 1:
+				if randi() & 1:
+					wintermap = 4
 	for tile in tiles:
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
-			atlas_coords = Vector2i(0, 1)
+			atlas_coords = Vector2i(wintermap, 1)
 		else:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
@@ -208,7 +215,7 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 
 
 func _on_timer_timeout() -> void:
-	Gamemanager.update()
+	#Gamemanager.update()
 	update()
 
 func delete_forest(position: Vector2i) -> void:
