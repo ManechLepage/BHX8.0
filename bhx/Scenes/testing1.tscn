@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
 [ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
-[ext_resource type="PackedScene" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
+[ext_resource type="PackedScene" uid="uid://gelrwf3fo1fj" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
 [ext_resource type="Script" path="res://Scripts/plane.gd" id="8_rsr61"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
