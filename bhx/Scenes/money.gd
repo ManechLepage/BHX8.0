@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _on_money_timer_timeout() -> void:
 	money_label.text = "+500"
-	money += 500
+	money += 700
 	Sound.dinero()
 	dont_change = true
 	await get_tree().create_timer(0.55).timeout
