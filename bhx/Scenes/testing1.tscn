@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=10 format=4 uid="uid://b5u35fxxajsc8"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
 [ext_resource type="Resource" uid="uid://bfaxflt56e3cy" path="res://Resources/DefaultGenerationParams.tres" id="2_x7ngu"]
-[ext_resource type="Texture2D" uid="uid://d1cx3km72sb1c" path="res://Resources/Grad2.tres" id="3_2dgcj"]
+[ext_resource type="Texture2D" uid="uid://cd5yxqsn1afe6" path="res://Resources/Grad2.tres" id="3_2dgcj"]
 [ext_resource type="Script" path="res://Scripts/CameraManager.gd" id="5_3eim0"]
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 

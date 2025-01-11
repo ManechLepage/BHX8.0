@@ -92,5 +92,6 @@ func update_burn_state() -> void:
 			forest_tile.burn_state = BurnState.HIGH
 		forest_tile.accumulated_heat += forest_tile.heat
 		if forest_tile.accumulated_heat > BURN_THRESHOLD:
-			forest_tile.burn_state = BurnState.HIGH
+			forest_tile.burn_state = BurnState.BURNT
+			forest_tile.heat = 0
 		
