@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://d31nh17tyhmkv"]
+
+[ext_resource type="Script" path="res://Scripts/event.gd" id="1_iy5gc"]
+[ext_resource type="Texture2D" uid="uid://dabo8j1ekdq58" path="res://Graphix/shovel.png" id="2_n8831"]
+
+[resource]
+script = ExtResource("1_iy5gc")
+duration = 4.0
+cost = 100
+sprite = ExtResource("2_n8831")
+name = "Destroy"

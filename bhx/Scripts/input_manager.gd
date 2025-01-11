@@ -1,3 +1,4 @@
+class_name InputManager
 extends Node2D
 
 @onready var tilemap: TileManager = $"../Tilemap"

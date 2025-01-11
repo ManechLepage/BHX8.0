@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://wg7mhspgfhvf"]
+[gd_scene load_steps=10 format=3 uid="uid://wg7mhspgfhvf"]
 
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_1tach"]
 [ext_resource type="PackedScene" uid="uid://biip1gkj8dqqj" path="res://Scenes/button.tscn" id="1_h5drg"]
 [ext_resource type="Script" path="res://Scenes/money.gd" id="2_aeoyg"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="2_xjvmb"]
+[ext_resource type="Script" path="res://Scripts/event.gd" id="3_aolv1"]
+[ext_resource type="Resource" uid="uid://d31nh17tyhmkv" path="res://Resources/Destroy.tres" id="4_c5cbq"]
 [ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
+[ext_resource type="Resource" uid="uid://d00hgdw3sjn45" path="res://Resources/Plane.tres" id="5_4xni6"]
+[ext_resource type="Resource" uid="uid://cd6tbvg8khelk" path="res://Resources/UltimatePlane.tres" id="6_4eorw"]
 
 [node name="Control" type="Control"]
 texture_filter = 1
@@ -17,6 +22,8 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1tach")
+script = ExtResource("2_xjvmb")
+events = Array[ExtResource("3_aolv1")]([ExtResource("4_c5cbq"), ExtResource("5_4xni6"), ExtResource("6_4eorw")])
 
 [node name="Actions_list" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -33,41 +40,23 @@ offset_bottom = -0.0480347
 [node name="Destroy" parent="Actions_list" instance=ExtResource("1_h5drg")]
 layout_mode = 2
 
-[node name="Money" type="ReferenceRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.011
-anchor_top = 0.025
-anchor_right = 0.252
-anchor_bottom = 0.154
-offset_left = 0.349999
-offset_top = -0.200001
-offset_right = 0.199982
-offset_bottom = 0.207993
+[node name="Plane" parent="Actions_list" instance=ExtResource("1_h5drg")]
+layout_mode = 2
 
-[node name="Actions" type="ReferenceRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.885
-anchor_top = 0.054
-anchor_right = 0.972
-anchor_bottom = 0.921
-offset_left = 0.479919
-offset_top = 0.00799942
-offset_right = 0.255981
-offset_bottom = 0.191956
+[node name="3Plane" parent="Actions_list" instance=ExtResource("1_h5drg")]
+layout_mode = 2
 
 [node name="money" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.011
 anchor_top = 0.023
-anchor_right = 0.251
-anchor_bottom = 0.153
+anchor_right = 0.129
+anchor_bottom = 0.086
 offset_left = 0.349999
 offset_top = 0.0959988
-offset_right = 0.349976
-offset_bottom = -0.144005
+offset_right = -0.350006
+offset_bottom = 0.271999
 script = ExtResource("2_aeoyg")
 
 [node name="Money" type="Label" parent="money"]
@@ -81,7 +70,13 @@ offset_left = 0.0999999
 offset_top = 0.0279999
 offset_right = -0.112015
 offset_bottom = -0.0200043
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 20
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
