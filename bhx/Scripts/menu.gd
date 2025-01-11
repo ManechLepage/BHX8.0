@@ -5,6 +5,7 @@ extends Control
 @onready var settings: Control = $"../Settings"
 
 func _ready() -> void:
+	get_tree().paused = true
 	game.visible = false
 	control.visible = false
 	visible = true
