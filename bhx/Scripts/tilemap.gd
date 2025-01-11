@@ -84,4 +84,4 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
 		if tile.type == Gamemanager.TileType.FOREST:
-			ground_cover.set_cell(tile.position + Vector2i(0, -1) + offset, 0, Vector2i(0, 0))
+			ground_cover.set_cell(tile.position + offset, 0, Vector2i(0, 0))
