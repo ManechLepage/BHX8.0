@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://c6yrpur1b2lhd"]
+[gd_scene load_steps=13 format=4 uid="uid://c6yrpur1b2lhd"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_eqtw3"]
 [ext_resource type="Texture2D" uid="uid://83m5vyrw1sof" path="res://Graphix/tiles.png" id="2_x6o17"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cb1uh7mqwmvjn" path="res://Graphix/indicators.png" id="5_gteg3"]
 [ext_resource type="Script" path="res://Scripts/input_manager.gd" id="7_rwkuo"]
 [ext_resource type="PackedScene" uid="uid://wg7mhspgfhvf" path="res://Scenes/UI.tscn" id="8_3idkp"]
+[ext_resource type="PackedScene" uid="uid://bxpqyjy48ynbn" path="res://Scenes/jicleur_de_terre.tscn" id="8_en8jn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vmj5"]
 texture = ExtResource("2_x6o17")
@@ -91,6 +92,11 @@ script = ExtResource("5_3eim0")
 
 [node name="InputManager" type="Node2D" parent="." groups=["InputManager"]]
 script = ExtResource("7_rwkuo")
+
+[node name="JicleurDeTerre" parent="." instance=ExtResource("8_en8jn")]
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 30
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

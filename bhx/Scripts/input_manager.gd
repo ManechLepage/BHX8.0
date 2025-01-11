@@ -2,6 +2,7 @@ class_name InputManager
 extends Node2D
 
 @onready var tilemap: TileManager = $"../Tilemap"
+@onready var jicleur_de_terre: CPUParticles2D = $"../JicleurDeTerre"
 
 enum SelectingType {
 	NONE,
@@ -24,6 +25,10 @@ func _input(event: InputEvent) -> void:
 		selecting_type = SelectingType.NONE
 
 func destroy() -> void:
+	jicleur_de_terre.global_position = get_global_mouse_position()
+	jicleur_de_terre.emitting = true
+	await get_tree().create_timer(4.0).timeout
+	jicleur_de_terre.emitting = false
 	var coords: Vector2i = tilemap.ground.local_to_map(tilemap.ground.get_local_mouse_position()) + tilemap.offset
 	if coords.y % 2 == 0:
 		coords += Vector2i(0, 1)

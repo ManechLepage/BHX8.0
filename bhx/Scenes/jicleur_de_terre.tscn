@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxpqyjy48ynbn"]
+
+[ext_resource type="Texture2D" uid="uid://07no0ytakt5h" path="res://Graphix/dirt.png" id="1_yjp0l"]
+
+[node name="JicleurDeTerre" type="CPUParticles2D"]
+texture_filter = 1
+amount = 100
+lifetime = 0.3
+texture = ExtResource("1_yjp0l")
+direction = Vector2(0, -1)
+initial_velocity_min = 105.11
+initial_velocity_max = 995.5
+scale_amount_min = 0.2
+scale_amount_max = 0.4
