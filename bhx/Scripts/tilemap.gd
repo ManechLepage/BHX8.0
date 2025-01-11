@@ -226,9 +226,9 @@ func get_neighbour_from_angle(generated_map: Array[Tile], tile: Tile, angle: flo
 	return get_tile_from_position(generated_map, tile_position)
 
 func get_river_min() -> int:
-	return 7 / diff + 1
+	return 10 / (diff / 5) + 1
 func get_river_max() -> int:
-	return 11 / diff + 1
+	return 14 / (diff / 5) + 1
 
 func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 	var number_of_rivers: int = rng.randi_range(get_river_min(), get_river_max())
