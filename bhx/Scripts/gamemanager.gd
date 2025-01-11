@@ -46,7 +46,7 @@ func reset() -> void:
 	strength_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	for tile in get_tree().get_first_node_in_group("TileMap").map:
 		tile.heat = 0
-		tile.BurnState = BurnState.NONE
+		tile.burn_state = BurnState.NONE
 	
 func update() -> void:
 	tick += 1
@@ -69,7 +69,7 @@ func update_burn_state() -> void:
 		#find the total heat
 		var total_heat: float = 0
 		for pos in forest_tile.get_neighbours():
-			var tile: Tile = get_tree().get_first_node_in_group("TileMap").map[pos.y * params.dimensions[0] + pos.x]
+			var tile: Tile = get_tree().get_first_node_in_group("TileMap").map[pos.y * get_tree().get_first_node_in_group("TileMap").params.dimensions.x + pos.x]
 			if (tile.type == TileType.FOREST):
 				var dir: Vector2 = pos - forest_tile.position
 				#rescale diagonals

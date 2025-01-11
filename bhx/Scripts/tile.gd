@@ -1,7 +1,7 @@
 class_name Tile
 extends Resource
 
-@export var params: GeneratorParams
+var params: GeneratorParams
 @export var type: Game.TileType
 @export var burn_state: Game.BurnState
 
@@ -15,6 +15,6 @@ func get_neighbours() -> Array[Vector2i]:
 		for j in [-1, 0, 1]:
 			if not (i == 0 and j == 0):
 				var neighbour: Vector2i = Vector2i(position.x + i, position.y + j)
-				if (neighbour.x >= 0 and neighbour.x < params.x and neighbour.y >= 0 and neighbour.y < params.y):
+				if (neighbour.x >= 0 and neighbour.x < params.dimensions.x and neighbour.y >= 0 and neighbour.y < params.dimensions.y):
 					result.append(Vector2i(position.x + i, position.y + j))
 	return result

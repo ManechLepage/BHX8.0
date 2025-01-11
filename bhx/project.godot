@@ -19,6 +19,14 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 Gamemanager="*res://Scripts/gamemanager.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+TileMap=""
+
 [input]
 
 Reset={

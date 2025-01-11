@@ -30,9 +30,16 @@ func _ready() -> void:
 	radial_gradient.height = params.dimensions.y
 	radial_gradient.width = params.dimensions.x
 	map = generate()
-	offset = params.dimensions / -2
-	update()
 	
+	Gamemanager.reset()
+	
+	var forest_tiles: Array[Tile] = Gamemanager.get_forest_tiles()
+	forest_tiles.pick_random().heat = 1
+	
+	offset = params.dimensions / -2
+	
+	update()
+
 func update() -> void:
 	update_tile_map(map)
 	load_water()
@@ -45,6 +52,7 @@ func generate() -> Array[Tile]:
 			var tile: Tile = Tile.new()
 			var position: Vector2i = Vector2i(x, y)
 			tile.type = get_tile_type(position)
+			tile.params = params
 			tile.burn_state = Gamemanager.BurnState.NONE
 			tile.position = position
 			generated_map.append(tile)
@@ -101,7 +109,10 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 			atlas_coords = Vector2i(0, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
 		if tile.type == Gamemanager.TileType.FOREST:
-			ground_cover.set_cell(tile.position + offset, 0, Vector2i(0, 0))
+			print(tile.burn_state)
+			var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
+			ground_cover.set_cell(tile.position + offset, 0, ground_atlas)
+			indicators.set_cell(tile.position + offset, 1, ground_atlas - Vector2i(1, 0))
 
 func get_tile_from_position(generated_map: Array[Tile], position: Vector2i) -> Tile:
 	var index: int = position.y * params.dimensions.x + position.x
@@ -185,3 +196,8 @@ func add_rivers(generated_map: Array[Tile]) -> Array[Tile]:
 			neighbour_in_direction.type = Gamemanager.TileType.WATER
 	
 	return generated_map
+
+
+func _on_timer_timeout() -> void:
+	Gamemanager.update()
+	update()
