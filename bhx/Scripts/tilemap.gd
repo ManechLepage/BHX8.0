@@ -14,6 +14,7 @@ var noise_plains: FastNoiseLite
 
 var start_number_of_trees: int
 var diff: int
+var dryness_level: int = 0
 
 var offset: Vector2i
 
@@ -37,6 +38,7 @@ func try_load_next_level():
 
 func load_level():
 	Gamemanager.did_win = false
+	update_dryness_level()
 	
 	params.seed = randi_range(0, 100000000000000)
 	map = generate()
@@ -65,6 +67,10 @@ func rename_year_title(text: String) -> void:
 
 func hide_win_screen() -> void:
 	get_tree().get_first_node_in_group("UI").score.scale = Vector2.ZERO
+
+func update_dryness_level() -> void:
+	var interval: int = 2
+	dryness_level = min(int(float(diff - 1) / interval), 3)
 
 func update() -> void:
 	update_tile_map(map)
@@ -154,10 +160,11 @@ func update_tile_map(tiles: Array[Tile]) -> void:
 		indicators.erase_cell(tile)
 
 	for tile in tiles:
+		
 		if tile.type == Gamemanager.TileType.FOREST or tile.type == Gamemanager.TileType.PLAINS:
-			atlas_coords = Vector2i(wintermap, 1)
+			atlas_coords = Vector2i(dryness_level, 1)
 		else:
-			atlas_coords = Vector2i(0, 2)
+			atlas_coords = Vector2i(dryness_level, 2)
 		ground.set_cell(tile.position + offset, 0, atlas_coords)
 		if tile.type == Gamemanager.TileType.FOREST:
 			var ground_atlas: Vector2i = Vector2i(int(tile.burn_state), 0)
