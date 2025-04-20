@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://d00hgdw3sjn45"]
 
-[ext_resource type="Script" path="res://Scripts/event.gd" id="1_pxbs5"]
+[ext_resource type="Script" uid="uid://bsdyi3dm51sr5" path="res://Scripts/event.gd" id="1_pxbs5"]
 [ext_resource type="Texture2D" uid="uid://b0qlyd604qbdb" path="res://Graphix/plane_item.png" id="2_5ryse"]
 
 [resource]

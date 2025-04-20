@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://vq6wprpaeka"]
 
 [ext_resource type="PackedScene" uid="uid://cf5soxq4dqwk0" path="res://Scenes/jicleur.tscn" id="1_h1hfn"]
-[ext_resource type="Script" path="res://Scripts/plane2.gd" id="1_yf468"]
+[ext_resource type="Script" uid="uid://b2k6injb3sxix" path="res://Scripts/plane2.gd" id="1_yf468"]
 [ext_resource type="Texture2D" uid="uid://bxp6dbyuve835" path="res://Graphix/plane.png" id="2_jpiju"]
 [ext_resource type="Texture2D" uid="uid://bmg6q0xuvpi7e" path="res://Graphix/clock1.png" id="4_ls8mr"]
 [ext_resource type="Texture2D" uid="uid://cdf5cb40s1nu8" path="res://Graphix/clock2.png" id="5_bghb3"]

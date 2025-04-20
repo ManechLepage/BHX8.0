@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_1tach"]
 [ext_resource type="PackedScene" uid="uid://biip1gkj8dqqj" path="res://Scenes/button.tscn" id="1_h5drg"]
-[ext_resource type="Script" path="res://Scenes/money.gd" id="2_aeoyg"]
-[ext_resource type="Script" path="res://Scripts/ui.gd" id="2_xjvmb"]
-[ext_resource type="Script" path="res://Scripts/event.gd" id="3_aolv1"]
+[ext_resource type="Script" uid="uid://batqsc1cn5dp0" path="res://Scenes/money.gd" id="2_aeoyg"]
+[ext_resource type="Script" uid="uid://cpbs0fp8jucsv" path="res://Scripts/ui.gd" id="2_xjvmb"]
+[ext_resource type="Script" uid="uid://bsdyi3dm51sr5" path="res://Scripts/event.gd" id="3_aolv1"]
 [ext_resource type="Resource" uid="uid://d31nh17tyhmkv" path="res://Resources/Destroy.tres" id="4_c5cbq"]
 [ext_resource type="Texture2D" uid="uid://cvgonc7d15yld" path="res://Graphix/money.png" id="4_jcmds"]
 [ext_resource type="Resource" uid="uid://d00hgdw3sjn45" path="res://Resources/Plane.tres" id="5_4xni6"]

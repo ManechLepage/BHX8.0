@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://capkovcdfjpkj" path="res://Graphix/background1.png" id="1_d5ak5"]
 [ext_resource type="Theme" uid="uid://rvsyfokxfiy1" path="res://Graphix/main.tres" id="1_u78q3"]
-[ext_resource type="Script" path="res://Scripts/settings.gd" id="2_skog1"]
+[ext_resource type="Script" uid="uid://cjv43ogw5b17u" path="res://Scripts/settings.gd" id="2_skog1"]
 [ext_resource type="Texture2D" uid="uid://cnvmulexfbj5j" path="res://Graphix/back.png" id="3_713pc"]
 
 [node name="Settings" type="Control"]

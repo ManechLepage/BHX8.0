@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GeneratorParams" load_steps=2 format=3 uid="uid://bfaxflt56e3cy"]
 
-[ext_resource type="Script" path="res://Scripts/generation_params.gd" id="1_pllev"]
+[ext_resource type="Script" uid="uid://ca31y21llho1r" path="res://Scripts/generation_params.gd" id="1_pllev"]
 
 [resource]
 script = ExtResource("1_pllev")
